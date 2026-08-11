@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Character encoding — tells the browser to support all languages/symbols -->
+  <meta charset="UTF-8" />
+
+  <!-- Makes the page look good on mobile screens too -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tab title -->
+  <title>Scam Detector — Login</title>
+
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Login page stylesheet -->
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+
+<body>
+
+  <!-- ========== NAVIGATION BAR (copied exactly from index.html) ========== -->
+  <header class="navbar">
+    <nav class="nav-container">
+
+      <!-- Logo / Brand name -->
+      <a href="index.html" class="nav-logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Scam Detector</span> 
+      </a>
+
+      <!-- Navigation links -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="history.html" class="nav-link">History</a></li>
+        <li><a href="login.html" class="nav-link active">Login</a></li>
+        <li><a href="register.html" class="nav-link nav-link--register">Register</a></li>
+       </ul>
+
+      <!-- Hamburger icon for mobile (controlled via JS later) -->
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </nav>
+  </header>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main>
+
+    <!-- ========== LOGIN HERO SECTION ========== -->
+    <section class="login-hero">
+      <div class="login-hero__container">
+        <h1 class="login-hero__title">Welcome Back</h1>
+        <p class="login-hero__subtitle">
+          Sign in to access your Scam Detector account.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== LOGIN CARD SECTION ========== -->
+    <section class="login-card-section">
+      <div class="login-card-section__container">
+
+        <div class="login-card">
+
+          <!-- Login form; connects to backend/JS later -->
+          <form class="login-card__form" id="loginForm" autocomplete="on" novalidate>
+
+            <!-- Email Address -->
+            <div class="login-card__field">
+              <label for="emailInput" class="login-card__label">Email Address</label>
+              <div class="login-card__input-wrapper">
+                <i class="fa-solid fa-envelope login-card__input-icon" aria-hidden="true"></i>
+                <input
+                  type="email"
+                  id="emailInput"
+                  name="email"
+                  class="login-card__input"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  aria-label="Email Address"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="login-card__field">
+              <label for="passwordInput" class="login-card__label">Password</label>
+              <div class="login-card__input-wrapper">
+                <i class="fa-solid fa-lock login-card__input-icon" aria-hidden="true"></i>
+                <input
+                  type="password"
+                  id="passwordInput"
+                  name="password"
+                  class="login-card__input"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  aria-label="Password"
+                  required
+                />
+                <!-- Show/Hide password toggle icon; controlled later by login.js -->
+                <button
+                  type="button"
+                  id="togglePassword"
+                  class="login-card__toggle-password"
+                  aria-label="Show password"
+                >
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Remember Me + Forgot Password row -->
+            <div class="login-card__options">
+              <label class="login-card__checkbox-label" for="rememberMe">
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  name="rememberMe"
+                  class="login-card__checkbox"
+                />
+                Remember Me
+              </label>
+
+              <a href="#" class="login-card__forgot-link">Forgot Password?</a>
+            </div>
+
+            <!-- Login button -->
+            <button type="submit" id="loginBtn" class="login-card__submit-btn">
+              <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+              Login
+            </button>
+
+          </form>
+
+          <!-- Divider -->
+          <div class="login-card__divider" role="separator" aria-label="or">
+            <span class="login-card__divider-line"></span>
+            <span class="login-card__divider-text">OR</span>
+            <span class="login-card__divider-line"></span>
+          </div>
+
+          <!-- Create Account -->
+          <div class="login-card__signup">
+            <p class="login-card__signup-text">Don't have an account?</p>
+            <button type="button" id="createAccountBtn" class="login-card__signup-btn">
+              Create Account
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER (copied exactly from index.html) ========== -->
+  <footer class="footer">
+    <div class="footer-container">
+
+      <!-- Brand name in footer -->
+      <div class="footer-brand">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Scam Detector</span>
+      </div>
+
+      <!-- Copyright -->
+      <p class="footer-copyright">
+        &copy; 2026 Scam Detector. All rights reserved.
+      </p>
+
+      <!-- Educational purpose note -->
+      <p class="footer-disclaimer">
+        Built for educational purposes only. Not a substitute for professional
+        cybersecurity tools.
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- Login page JavaScript (write this later) -->
+  <script src="js/login.js"></script>
+
+</body>
+</html>

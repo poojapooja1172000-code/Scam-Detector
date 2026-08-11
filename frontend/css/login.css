@@ -1,0 +1,712 @@
+/* ============================================================
+   SCAM DETECTOR — login.css
+   Project : Scam Detector (Educational)
+
+   This file styles login.html ONLY.
+   login.html does not link style.css, so this file repeats the
+   same design tokens, navbar, and footer styles as style.css to
+   keep every page looking like one consistent website.
+
+   TABLE OF CONTENTS
+   -----------------
+   1.  CSS Variables (Design Tokens)
+   2.  CSS Reset & Base Styles
+   3.  Reusable Utility Classes
+   4.  Navigation Bar
+   5.  Login Hero Section
+   6.  Login Card
+   7.  Input Fields & Icons
+   8.  Password Toggle Button
+   9.  Remember Me / Forgot Password Row
+   10. Login Button
+   11. Divider (OR)
+   12. Create Account Section
+   13. Footer
+   14. Responsive Design (Tablet & Mobile)
+   ============================================================ */
+
+
+/* ============================================================
+   1. CSS VARIABLES (DESIGN TOKENS)
+   — Same values as style.css so colors/fonts/spacing match
+     exactly across every page of the site.
+   ============================================================ */
+
+:root {
+  /* --- Color Palette (copied from style.css) --- */
+  --color-primary       : #2563EB;   /* Main blue — buttons, links, highlights */
+  --color-primary-dark  : #1D4ED8;   /* Darker blue — hover states              */
+  --color-primary-light : #EFF6FF;   /* Very light blue — subtle backgrounds    */
+  --color-success       : #16A34A;   /* Green — used sparingly for success cues */
+  --color-danger        : #DC2626;   /* Red — used for error/validation states  */
+  --color-white         : #FFFFFF;
+  --color-bg            : #F8FAFC;   /* Light gray — page background            */
+  --color-dark          : #1F2937;   /* Dark gray — headings and footer         */
+  --color-text          : #374151;   /* Body text                               */
+  --color-text-light    : #6B7280;   /* Muted text — descriptions, captions     */
+  --color-border        : #E5E7EB;   /* Borders and dividers                    */
+
+  /* --- Gradient (copied from style.css) --- */
+  --gradient-hero : linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 60%, #E0F2FE 100%);
+  --gradient-btn  : linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+
+  /* --- Typography --- */
+  --font-family : 'Poppins', sans-serif;
+  --font-size-xs  : 0.75rem;
+  --font-size-sm  : 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg  : 1.125rem;
+  --font-size-xl  : 1.25rem;
+  --font-size-2xl : 1.5rem;
+  --font-size-3xl : 1.875rem;
+
+  /* --- Spacing --- */
+  --space-1 : 0.25rem;
+  --space-2 : 0.5rem;
+  --space-3 : 0.75rem;
+  --space-4 : 1rem;
+  --space-5 : 1.25rem;
+  --space-6 : 1.5rem;
+  --space-8 : 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* --- Border Radius --- */
+  --radius-sm  : 6px;
+  --radius-md  : 12px;
+  --radius-lg  : 20px;
+  --radius-pill: 999px;
+
+  /* --- Shadows --- */
+  --shadow-sm : 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md : 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg : 0 10px 40px rgba(0, 0, 0, 0.10);
+  --shadow-nav: 0 2px 12px rgba(37, 99, 235, 0.08);
+
+  /* --- Transitions --- */
+  --transition-fast  : 0.15s ease;
+  --transition-normal: 0.25s ease;
+
+  /* --- Layout --- */
+  --max-width : 1200px;
+  --nav-height: 72px;
+}
+
+
+/* ============================================================
+   2. CSS RESET & BASE STYLES
+   — Same reset as style.css so spacing behaves identically.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family      : var(--font-family);
+  font-size        : var(--font-size-base);
+  color            : var(--color-text);
+  background-color : var(--color-bg);
+  line-height      : 1.6;
+
+  /* Push page content below the fixed navbar */
+  padding-top: var(--nav-height);
+}
+
+a {
+  text-decoration: none;
+  color          : inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: var(--font-family);
+  cursor     : pointer;
+  border     : none;
+  background : none;
+}
+
+/* Accessible focus outline for keyboard users (links, buttons, inputs) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline       : 3px solid rgba(37, 99, 235, 0.3);
+  outline-offset: 2px;
+}
+
+
+/* ============================================================
+   3. REUSABLE UTILITY CLASSES
+   — Shared "container" style used by every section wrapper.
+   ============================================================ */
+
+.nav-container,
+.login-hero__container,
+.login-card-section__container,
+.footer-container {
+  max-width: var(--max-width);
+  margin   : 0 auto;
+  padding  : 0 var(--space-6);
+}
+
+
+/* ============================================================
+   4. NAVIGATION BAR
+   — Identical to style.css so the navbar looks the same as
+     every other page.
+   ============================================================ */
+
+.navbar {
+  position     : fixed;
+  top          : 0;
+  left         : 0;
+  width        : 100%;
+  height       : var(--nav-height);
+  background   : var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow   : var(--shadow-nav);
+  z-index      : 1000;
+}
+
+.nav-container {
+  height         : 100%;
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-2);
+  font-size  : var(--font-size-xl);
+  font-weight: 700;
+  color      : var(--color-primary);
+  transition : opacity var(--transition-fast);
+}
+
+.nav-logo i {
+  font-size: var(--font-size-2xl);
+}
+
+.nav-logo:hover {
+  opacity: 0.85;
+}
+
+.nav-links {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-2);
+}
+
+.nav-link {
+  font-size    : var(--font-size-sm);
+  font-weight  : 500;
+  color        : var(--color-text);
+  padding      : var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition   : color var(--transition-fast),
+                 background var(--transition-fast);
+}
+
+.nav-link:hover {
+  color     : var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.nav-link.active {
+  color      : var(--color-primary);
+  font-weight: 600;
+}
+
+.nav-link--register {
+  color        : var(--color-white);
+  background   : var(--gradient-btn);
+  border-radius: var(--radius-pill);
+  padding      : var(--space-2) var(--space-5);
+  font-weight  : 600;
+  box-shadow   : 0 2px 8px rgba(37, 99, 235, 0.25);
+  transition   : transform var(--transition-fast),
+                 box-shadow var(--transition-fast);
+}
+
+.nav-link--register:hover {
+  color     : var(--color-white);
+  transform : translateY(-1px);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+}
+
+/* Hidden on desktop — shown only on small screens */
+.nav-toggle {
+  display  : none;
+  font-size: var(--font-size-xl);
+  color    : var(--color-dark);
+  padding  : var(--space-2);
+}
+
+
+/* ============================================================
+   5. LOGIN HERO SECTION
+   — Simple centered banner with a soft gradient background,
+     matching the tone of the Home Page hero.
+   ============================================================ */
+
+.login-hero {
+  background: var(--gradient-hero);
+  padding   : var(--space-12) 0 var(--space-8);
+  text-align: center;
+}
+
+.login-hero__title {
+  font-size    : var(--font-size-3xl);
+  font-weight  : 800;
+  color        : var(--color-dark);
+  margin-bottom: var(--space-3);
+}
+
+.login-hero__subtitle {
+  font-size: var(--font-size-lg);
+  color    : var(--color-text-light);
+  max-width: 480px;
+  margin   : 0 auto;
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   6. LOGIN CARD
+   — The white card is centered on the page and holds the
+     entire form, divider, and sign-up prompt.
+   ============================================================ */
+
+.login-card-section {
+  padding: var(--space-8) 0 var(--space-12);
+}
+
+.login-card-section__container {
+  display        : flex;
+  justify-content: center;
+}
+
+.login-card {
+  background   : var(--color-white);
+  border       : 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow   : var(--shadow-md);
+  padding      : var(--space-8);
+  width        : 100%;
+  max-width    : 440px;
+}
+
+.login-card__form {
+  display       : flex;
+  flex-direction: column;
+  gap           : var(--space-5);
+}
+
+.login-card__field {
+  display       : flex;
+  flex-direction: column;
+  gap           : var(--space-2);
+}
+
+.login-card__label {
+  font-size  : var(--font-size-sm);
+  font-weight: 600;
+  color      : var(--color-dark);
+}
+
+
+/* ============================================================
+   7. INPUT FIELDS & ICONS
+   — Each input sits inside a wrapper so an icon (and, for the
+     password field, a toggle button) can be positioned inside
+     the field without using inline styles.
+   ============================================================ */
+
+.login-card__input-wrapper {
+  position   : relative;
+  display    : flex;
+  align-items: center;
+}
+
+.login-card__input-icon {
+  position : absolute;
+  left     : var(--space-4);
+  color    : var(--color-text-light);
+  font-size: var(--font-size-base);
+  transition: color var(--transition-fast);
+}
+
+.login-card__input {
+  width        : 100%;
+  padding      : var(--space-4) var(--space-4) var(--space-4) var(--space-10);
+  font-family  : var(--font-family);
+  font-size    : var(--font-size-base);
+  color        : var(--color-dark);
+  background   : var(--color-bg);
+  border       : 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline      : none;
+  transition   : border-color var(--transition-fast),
+                 box-shadow var(--transition-fast),
+                 background var(--transition-fast);
+}
+
+/* The password field needs extra right padding so text never
+   sits underneath the show/hide toggle button */
+#passwordInput {
+  padding-right: var(--space-12);
+}
+
+.login-card__input::placeholder {
+  color: var(--color-text-light);
+}
+
+/* Blue glow + white background when a field is focused */
+.login-card__input:focus {
+  background  : var(--color-white);
+  border-color: var(--color-primary);
+  box-shadow  : 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+/* Icon turns blue when its input is focused */
+.login-card__input:focus ~ .login-card__input-icon {
+  color: var(--color-primary);
+}
+
+
+/* ============================================================
+   8. PASSWORD TOGGLE BUTTON
+   — Positioned inside the password field, on the right side.
+   ============================================================ */
+
+.login-card__toggle-password {
+  position   : absolute;
+  right      : var(--space-4);
+  display    : flex;
+  align-items: center;
+  justify-content: center;
+  color      : var(--color-text-light);
+  font-size  : var(--font-size-base);
+  transition : color var(--transition-fast);
+}
+
+.login-card__toggle-password:hover {
+  color: var(--color-primary);
+}
+
+
+/* ============================================================
+   9. REMEMBER ME / FORGOT PASSWORD ROW
+   — Sit on the same row: checkbox + label on the left,
+     link on the right.
+   ============================================================ */
+
+.login-card__options {
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  flex-wrap      : wrap;
+  gap            : var(--space-3);
+}
+
+.login-card__checkbox-label {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-2);
+  font-size  : var(--font-size-sm);
+  color      : var(--color-text);
+  cursor     : pointer;
+}
+
+.login-card__checkbox {
+  width : 16px;
+  height: 16px;
+  accent-color: var(--color-primary); /* Colors the native checkbox blue */
+  cursor: pointer;
+}
+
+.login-card__forgot-link {
+  font-size  : var(--font-size-sm);
+  font-weight: 500;
+  color      : var(--color-primary);
+  transition : color var(--transition-fast);
+}
+
+.login-card__forgot-link:hover {
+  color         : var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+
+/* ============================================================
+   10. LOGIN BUTTON
+   — Full-width primary button, matching the Home Page's
+     gradient button style.
+   ============================================================ */
+
+.login-card__submit-btn {
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  gap            : var(--space-2);
+  width          : 100%;
+  padding        : var(--space-4);
+  font-size      : var(--font-size-base);
+  font-weight    : 600;
+  color          : var(--color-white);
+  background     : var(--gradient-btn);
+  border-radius  : var(--radius-pill);
+  box-shadow     : 0 4px 14px rgba(37, 99, 235, 0.35);
+  transition     : transform var(--transition-fast),
+                   box-shadow var(--transition-fast),
+                   filter var(--transition-fast);
+}
+
+.login-card__submit-btn:hover {
+  transform : translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+  filter    : brightness(1.05);
+}
+
+.login-card__submit-btn:active {
+  transform : translateY(0);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+
+/* ============================================================
+   11. DIVIDER (OR)
+   — A horizontal line on each side of the word "OR".
+   ============================================================ */
+
+.login-card__divider {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-3);
+  margin     : var(--space-6) 0;
+}
+
+.login-card__divider-line {
+  flex      : 1;
+  height    : 1px;
+  background: var(--color-border);
+}
+
+.login-card__divider-text {
+  font-size  : var(--font-size-xs);
+  font-weight: 600;
+  color      : var(--color-text-light);
+  letter-spacing: 0.05em;
+}
+
+
+/* ============================================================
+   12. CREATE ACCOUNT SECTION
+   — Prompt text plus a secondary (outlined) button.
+   ============================================================ */
+
+.login-card__signup {
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  gap           : var(--space-3);
+  text-align    : center;
+}
+
+.login-card__signup-text {
+  font-size: var(--font-size-sm);
+  color    : var(--color-text-light);
+}
+
+/* Secondary button style — outlined instead of solid,
+   so it looks clearly different from the primary Login button */
+.login-card__signup-btn {
+  width        : 100%;
+  padding      : var(--space-3) var(--space-4);
+  font-size    : var(--font-size-base);
+  font-weight  : 600;
+  color        : var(--color-primary);
+  background   : var(--color-white);
+  border       : 2px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  transition   : background var(--transition-fast),
+                 color var(--transition-fast),
+                 transform var(--transition-fast);
+}
+
+.login-card__signup-btn:hover {
+  background: var(--color-primary-light);
+  transform : translateY(-2px);
+}
+
+.login-card__signup-btn:active {
+  transform: translateY(0);
+}
+
+
+/* ============================================================
+   13. FOOTER
+   — Identical to style.css so the footer matches every page.
+   ============================================================ */
+
+.footer {
+  background: var(--color-dark);
+  padding   : var(--space-12) 0;
+  color     : var(--color-white);
+}
+
+.footer-container {
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  gap           : var(--space-4);
+  text-align    : center;
+}
+
+.footer-brand {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-2);
+  font-size  : var(--font-size-xl);
+  font-weight: 700;
+  color      : var(--color-white);
+}
+
+.footer-brand i {
+  color    : var(--color-primary);
+  font-size: var(--font-size-2xl);
+}
+
+.footer-copyright {
+  font-size: var(--font-size-sm);
+  color    : rgba(255, 255, 255, 0.6);
+}
+
+.footer-disclaimer {
+  font-size  : var(--font-size-xs);
+  color      : rgba(255, 255, 255, 0.35);
+  max-width  : 420px;
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   14. RESPONSIVE DESIGN
+
+   Breakpoints (same as style.css):
+   — Tablet : max-width 1024px
+   — Mobile : max-width 768px
+   — Small  : max-width 480px
+   ============================================================ */
+
+/* -------- TABLET (≤ 1024px) -------- */
+@media (max-width: 1024px) {
+
+  .login-card {
+    max-width: 400px;
+  }
+}
+
+
+/* -------- MOBILE (≤ 768px) -------- */
+@media (max-width: 768px) {
+
+  /* --- Navbar --- */
+  .nav-toggle {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+  }
+
+  .nav-links {
+    display       : none;   /* Hidden by default on mobile */
+    position      : absolute;
+    top           : var(--nav-height);
+    left          : 0;
+    width         : 100%;
+    flex-direction: column;
+    background    : var(--color-white);
+    border-bottom : 1px solid var(--color-border);
+    box-shadow    : var(--shadow-md);
+    padding       : var(--space-4) 0;
+    gap           : 0;
+    z-index       : 999;
+  }
+
+  /* JS adds this class to reveal the menu when the hamburger is clicked */
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-link {
+    padding      : var(--space-3) var(--space-6);
+    width        : 100%;
+    border-radius: 0;
+  }
+
+  .nav-link--register {
+    margin       : var(--space-3) var(--space-6);
+    width        : calc(100% - var(--space-12));
+    text-align   : center;
+    border-radius: var(--radius-pill);
+  }
+
+  /* --- Login Hero --- */
+  .login-hero__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  /* --- Login Card --- */
+  .login-card {
+    padding: var(--space-6);
+  }
+
+  /* Stack Remember Me and Forgot Password on separate lines */
+  .login-card__options {
+    flex-direction: column;
+    align-items   : flex-start;
+    gap           : var(--space-2);
+  }
+}
+
+
+/* -------- SMALL MOBILE (≤ 480px) -------- */
+@media (max-width: 480px) {
+
+  .nav-container,
+  .login-hero__container,
+  .login-card-section__container,
+  .footer-container {
+    padding: 0 var(--space-4);
+  }
+
+  .login-card {
+    padding      : var(--space-5);
+    border-radius: var(--radius-md);
+  }
+
+  .login-hero__subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .login-card__input {
+    padding: var(--space-3) var(--space-3) var(--space-3) var(--space-10);
+  }
+
+  #passwordInput {
+    padding-right: var(--space-10);
+  }
+}

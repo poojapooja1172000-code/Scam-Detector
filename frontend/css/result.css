@@ -1,0 +1,845 @@
+/* ============================================================
+   SCAM DETECTOR — result.css
+   Project : Scam Detector (Educational)
+
+   This file styles result.html ONLY.
+   result.html does not link style.css, so this file repeats the
+   same design tokens, navbar, and footer styles as style.css to
+   keep both pages looking like one consistent website.
+
+   TABLE OF CONTENTS
+   -----------------
+   1.  CSS Variables (Design Tokens)
+   2.  CSS Reset & Base Styles
+   3.  Reusable Utility Classes
+   4.  Navigation Bar
+   5.  Result Hero Section
+   6.  URL Information Card
+   7.  Result Status Card
+   8.  Risk Score Section
+   9.  Detection Details Grid
+   10. Recommended Action Card
+   11. Action Buttons
+   12. Footer
+   13. Responsive Design (Tablet & Mobile)
+   ============================================================ */
+
+
+/* ============================================================
+   1. CSS VARIABLES (DESIGN TOKENS)
+   — Same values as style.css so colors/fonts/spacing match
+     exactly between the Home Page and the Result Page.
+   — A few new tokens (warning/danger colors) are added here
+     because the Result Page needs them for status badges.
+   ============================================================ */
+
+:root {
+  /* --- Color Palette (copied from style.css) --- */
+  --color-primary       : #2563EB;   /* Main blue — buttons, links, highlights */
+  --color-primary-dark  : #1D4ED8;   /* Darker blue — hover states              */
+  --color-primary-light : #EFF6FF;   /* Very light blue — subtle backgrounds    */
+  --color-success       : #16A34A;   /* Green — safe verdict accents            */
+  --color-white         : #FFFFFF;
+  --color-bg            : #F8FAFC;   /* Light gray — page background            */
+  --color-dark          : #1F2937;   /* Dark gray — headings and footer         */
+  --color-text          : #374151;   /* Body text                               */
+  --color-text-light    : #6B7280;   /* Muted text — descriptions, captions     */
+  --color-border        : #E5E7EB;   /* Borders and dividers                    */
+
+  /* --- New colors needed for the Result Page --- */
+  --color-success-light : #DCFCE7;   /* Light green background for badges       */
+  --color-warning        : #D97706;  /* Orange — "Warning" badge                */
+  --color-warning-light  : #FEF3C7;  /* Light orange background for badges      */
+  --color-danger          : #DC2626; /* Red — "Failed" badge                    */
+  --color-danger-light    : #FEE2E2; /* Light red background for badges         */
+
+  /* --- Gradient (copied from style.css) --- */
+  --gradient-btn : linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+
+  /* --- Typography --- */
+  --font-family : 'Poppins', sans-serif;
+  --font-size-xs  : 0.75rem;
+  --font-size-sm  : 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg  : 1.125rem;
+  --font-size-xl  : 1.25rem;
+  --font-size-2xl : 1.5rem;
+  --font-size-3xl : 1.875rem;
+  --font-size-4xl : 2.25rem;
+
+  /* --- Spacing --- */
+  --space-1 : 0.25rem;
+  --space-2 : 0.5rem;
+  --space-3 : 0.75rem;
+  --space-4 : 1rem;
+  --space-5 : 1.25rem;
+  --space-6 : 1.5rem;
+  --space-8 : 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* --- Border Radius --- */
+  --radius-sm  : 6px;
+  --radius-md  : 12px;
+  --radius-lg  : 20px;
+  --radius-pill: 999px;
+
+  /* --- Shadows --- */
+  --shadow-sm : 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md : 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg : 0 10px 40px rgba(0, 0, 0, 0.10);
+  --shadow-nav: 0 2px 12px rgba(37, 99, 235, 0.08);
+
+  /* --- Transitions --- */
+  --transition-fast  : 0.15s ease;
+  --transition-normal: 0.25s ease;
+
+  /* --- Layout --- */
+  --max-width : 1200px;
+  --nav-height: 72px;
+}
+
+
+/* ============================================================
+   2. CSS RESET & BASE STYLES
+   — Same reset as style.css so spacing behaves identically.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family      : var(--font-family);
+  font-size        : var(--font-size-base);
+  color            : var(--color-text);
+  background-color : var(--color-bg);
+  line-height      : 1.6;
+
+  /* Push page content below the fixed navbar */
+  padding-top: var(--nav-height);
+}
+
+a {
+  text-decoration: none;
+  color          : inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: var(--font-family);
+  cursor     : pointer;
+  border     : none;
+  background : none;
+}
+
+
+/* ============================================================
+   3. REUSABLE UTILITY CLASSES
+   — Shared "container" and "section title" styles used across
+     every section on this page.
+   ============================================================ */
+
+.nav-container,
+.result-hero-container,
+.url-info-container,
+.result-status-container,
+.risk-score-container,
+.detection-details-container,
+.recommendation-container,
+.result-actions-container,
+.footer-container {
+  max-width: var(--max-width);
+  margin   : 0 auto;
+  padding  : 0 var(--space-6);
+}
+
+.section-title {
+  font-size    : var(--font-size-3xl);
+  font-weight  : 700;
+  color        : var(--color-dark);
+  text-align   : center;
+  margin-bottom: var(--space-3);
+}
+
+.section-subtitle {
+  font-size  : var(--font-size-lg);
+  color      : var(--color-text-light);
+  text-align : center;
+  max-width  : 560px;
+  margin     : 0 auto var(--space-8);
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   4. NAVIGATION BAR
+   — Identical to style.css so the navbar looks the same as
+     the Home Page.
+   ============================================================ */
+
+.navbar {
+  position     : fixed;
+  top          : 0;
+  left         : 0;
+  width        : 100%;
+  height       : var(--nav-height);
+  background   : var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow   : var(--shadow-nav);
+  z-index      : 1000;
+}
+
+.nav-container {
+  height         : 100%;
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-2);
+  font-size  : var(--font-size-xl);
+  font-weight: 700;
+  color      : var(--color-primary);
+  transition : opacity var(--transition-fast);
+}
+
+.nav-logo i {
+  font-size: var(--font-size-2xl);
+}
+
+.nav-logo:hover {
+  opacity: 0.85;
+}
+
+.nav-links {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-2);
+}
+
+.nav-link {
+  font-size    : var(--font-size-sm);
+  font-weight  : 500;
+  color        : var(--color-text);
+  padding      : var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition   : color var(--transition-fast),
+                 background var(--transition-fast);
+}
+
+.nav-link:hover {
+  color     : var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.nav-link.active {
+  color      : var(--color-primary);
+  font-weight: 600;
+}
+
+.nav-link--register {
+  color        : var(--color-white);
+  background   : var(--gradient-btn);
+  border-radius: var(--radius-pill);
+  padding      : var(--space-2) var(--space-5);
+  font-weight  : 600;
+  box-shadow   : 0 2px 8px rgba(37, 99, 235, 0.25);
+  transition   : transform var(--transition-fast),
+                 box-shadow var(--transition-fast);
+}
+
+.nav-link--register:hover {
+  color     : var(--color-white);
+  transform : translateY(-1px);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+}
+
+/* Hidden on desktop — shown only on small screens */
+.nav-toggle {
+  display  : none;
+  font-size: var(--font-size-xl);
+  color    : var(--color-dark);
+  padding  : var(--space-2);
+}
+
+
+/* ============================================================
+   5. RESULT HERO SECTION
+   — Simple centered banner introducing the result page.
+   ============================================================ */
+
+.result-hero {
+  background: var(--color-white);
+  padding   : var(--space-12) 0 var(--space-8);
+  text-align: center;
+}
+
+
+/* ============================================================
+   6. URL INFORMATION CARD
+   — Looks like a small dashboard summary panel: an icon,
+     label, and value for each piece of scanned URL data.
+   ============================================================ */
+
+.url-info {
+  padding: var(--space-4) 0 var(--space-8);
+}
+
+.url-info-card {
+  background   : var(--color-white);
+  border       : 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow   : var(--shadow-sm);
+  padding      : var(--space-8);
+  display      : grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap          : var(--space-6);
+}
+
+.url-info-row {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-4);
+}
+
+.url-info-row__icon {
+  flex-shrink    : 0;
+  width          : 48px;
+  height         : 48px;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  background     : var(--color-primary-light);
+  color          : var(--color-primary);
+  border-radius  : var(--radius-md);
+  font-size      : var(--font-size-lg);
+}
+
+.url-info-row__text {
+  display       : flex;
+  flex-direction: column;
+  gap           : var(--space-1);
+  min-width     : 0;   /* allows long URL values to wrap instead of overflowing */
+}
+
+.url-info-row__label {
+  font-size     : var(--font-size-xs);
+  color         : var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.url-info-row__value {
+  font-size  : var(--font-size-base);
+  font-weight: 600;
+  color      : var(--color-dark);
+  word-break : break-word;
+}
+
+
+/* ============================================================
+   7. RESULT STATUS CARD
+   — The big verdict card. Default styling below is the SAFE
+     (green) state, since that is the placeholder in the HTML.
+   ============================================================ */
+
+.result-status {
+  padding: var(--space-4) 0 var(--space-8);
+}
+
+.result-status-card {
+  background   : var(--color-success-light);
+  border       : 1px solid var(--color-success);
+  border-radius: var(--radius-lg);
+  box-shadow   : var(--shadow-sm);
+  padding      : var(--space-12) var(--space-6);
+  text-align   : center;
+}
+
+.result-status-card__icon {
+  font-size    : var(--font-size-4xl);
+  color        : var(--color-success);
+  margin-bottom: var(--space-3);
+}
+
+.result-status-card__badge {
+  display       : inline-block;
+  background    : var(--color-success);
+  color         : var(--color-white);
+  font-weight   : 700;
+  font-size     : var(--font-size-sm);
+  letter-spacing: 0.05em;
+  padding       : var(--space-2) var(--space-5);
+  border-radius : var(--radius-pill);
+  margin-bottom : var(--space-4);
+}
+
+.result-status-card__heading {
+  font-size    : var(--font-size-2xl);
+  font-weight  : 700;
+  color        : var(--color-dark);
+  margin-bottom: var(--space-2);
+}
+
+.result-status-card__description {
+  font-size: var(--font-size-base);
+  color    : var(--color-text-light);
+  max-width: 500px;
+  margin   : 0 auto;
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   8. RISK SCORE SECTION
+   — Shows the risk percentage plus a horizontal progress bar.
+   The bar's fill width is controlled purely by CSS classes
+   (--low / --medium / --high), never inline styles.
+   ============================================================ */
+
+.risk-score {
+  padding: var(--space-4) 0 var(--space-8);
+}
+
+.risk-score-card {
+  background   : var(--color-white);
+  border       : 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow   : var(--shadow-sm);
+  padding      : var(--space-8);
+  margin-top   : var(--space-4);
+}
+
+.risk-score-card__top {
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  margin-bottom  : var(--space-3);
+}
+
+.risk-score-card__label {
+  font-weight: 500;
+  color      : var(--color-dark);
+}
+
+.risk-score-card__value {
+  font-weight: 700;
+  font-size  : var(--font-size-lg);
+  color      : var(--color-primary);
+}
+
+/* Track — the gray background bar */
+.risk-score-bar {
+  width        : 100%;
+  height       : 14px;
+  background   : var(--color-border);
+  border-radius: var(--radius-pill);
+  overflow     : hidden;
+}
+
+/* Fill — the colored progress inside the bar */
+.risk-score-bar__fill {
+  height       : 100%;
+  border-radius: var(--radius-pill);
+  transition   : width var(--transition-normal);
+}
+
+/* Width variants — result.js only needs to swap these classes */
+.risk-score-bar__fill--low {
+  width     : 10%;
+  background: var(--color-success);
+}
+
+.risk-score-bar__fill--medium {
+  width     : 50%;
+  background: var(--color-warning);
+}
+
+.risk-score-bar__fill--high {
+  width     : 90%;
+  background: var(--color-danger);
+}
+
+
+/* ============================================================
+   9. DETECTION DETAILS GRID
+   — Four responsive cards, one per check performed. Each card
+     lifts slightly on hover, matching feature-card in style.css.
+   ============================================================ */
+
+.detection-details {
+  padding: var(--space-4) 0 var(--space-8);
+}
+
+.detection-details-grid {
+  display              : grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap                  : var(--space-6);
+  margin-top           : var(--space-6);
+}
+
+.detection-card {
+  background   : var(--color-white);
+  border       : 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding      : var(--space-6);
+  text-align   : center;
+  box-shadow   : var(--shadow-sm);
+  transition   : transform var(--transition-normal),
+                 box-shadow var(--transition-normal),
+                 border-color var(--transition-normal);
+}
+
+.detection-card:hover {
+  transform   : translateY(-6px);
+  box-shadow  : var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+.detection-card__icon {
+  width          : 56px;
+  height         : 56px;
+  margin         : 0 auto var(--space-4);
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  background     : var(--color-primary-light);
+  color          : var(--color-primary);
+  border-radius  : var(--radius-md);
+  font-size      : var(--font-size-xl);
+  transition     : background var(--transition-normal);
+}
+
+.detection-card:hover .detection-card__icon {
+  background: var(--color-primary);
+  color     : var(--color-white);
+}
+
+.detection-card__title {
+  font-size    : var(--font-size-lg);
+  font-weight  : 700;
+  color        : var(--color-dark);
+  margin-bottom: var(--space-2);
+}
+
+.detection-card__description {
+  font-size    : var(--font-size-sm);
+  color        : var(--color-text-light);
+  line-height  : 1.6;
+  margin-bottom: var(--space-4);
+}
+
+/* Base badge style shared by all badge colors */
+.detection-card__badge {
+  display      : inline-block;
+  font-size    : var(--font-size-xs);
+  font-weight  : 700;
+  padding      : var(--space-1) var(--space-4);
+  border-radius: var(--radius-pill);
+}
+
+.detection-card__badge--passed {
+  background: var(--color-success-light);
+  color     : var(--color-success);
+}
+
+.detection-card__badge--warning {
+  background: var(--color-warning-light);
+  color     : var(--color-warning);
+}
+
+.detection-card__badge--failed {
+  background: var(--color-danger-light);
+  color     : var(--color-danger);
+}
+
+
+/* ============================================================
+   10. RECOMMENDED ACTION CARD
+   — A clean, highlighted card telling the user what to do next.
+   ============================================================ */
+
+.recommendation {
+  padding: var(--space-4) 0 var(--space-8);
+}
+
+.recommendation-card {
+  background   : var(--color-primary-light);
+  border       : 1px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding      : var(--space-10) var(--space-6);
+  text-align   : center;
+}
+
+.recommendation-card__icon {
+  font-size    : var(--font-size-4xl);
+  color        : var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+
+.recommendation-card__heading {
+  font-size    : var(--font-size-xl);
+  font-weight  : 700;
+  color        : var(--color-dark);
+  margin-bottom: var(--space-2);
+}
+
+.recommendation-card__text {
+  font-size: var(--font-size-base);
+  color    : var(--color-text-light);
+  max-width: 500px;
+  margin   : 0 auto;
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   11. ACTION BUTTONS
+   — "Analyze Another URL" and "Go to History", centered.
+   — .hero-btn is already defined by style.css's hero button;
+     it's redefined here so it also works on this page, since
+     result.html does not load style.css.
+   ============================================================ */
+
+.result-actions {
+  padding: var(--space-4) 0 var(--space-12);
+}
+
+.result-actions-container {
+  display        : flex;
+  justify-content: center;
+  flex-wrap      : wrap;
+  gap            : var(--space-4);
+}
+
+.hero-btn {
+  display      : inline-flex;
+  align-items  : center;
+  gap          : var(--space-2);
+  padding      : var(--space-4) var(--space-8);
+  font-family  : var(--font-family);
+  font-size    : var(--font-size-base);
+  font-weight  : 600;
+  color        : var(--color-white);
+  background   : var(--gradient-btn);
+  border-radius: var(--radius-pill);
+  box-shadow   : 0 4px 14px rgba(37, 99, 235, 0.35);
+  white-space  : nowrap;
+  transition   : transform var(--transition-fast),
+                 box-shadow var(--transition-fast),
+                 filter var(--transition-fast);
+}
+
+.hero-btn:hover {
+  transform : translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+  filter    : brightness(1.05);
+}
+
+.hero-btn:focus {
+  outline       : 3px solid rgba(37, 99, 235, 0.3);
+  outline-offset: 3px;
+}
+
+.hero-btn:active {
+  transform : translateY(0);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+/* Secondary button — outlined instead of solid, used for "Go to History" */
+.hero-btn--secondary {
+  color     : var(--color-primary);
+  background: var(--color-white);
+  border    : 2px solid var(--color-primary);
+  box-shadow: none;
+}
+
+.hero-btn--secondary:hover {
+  background: var(--color-primary-light);
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* ============================================================
+   12. FOOTER
+   — Identical to style.css so the footer matches the Home Page.
+   ============================================================ */
+
+.footer {
+  background: var(--color-dark);
+  padding   : var(--space-12) 0;
+  color     : var(--color-white);
+}
+
+.footer-container {
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  gap           : var(--space-4);
+  text-align    : center;
+}
+
+.footer-brand {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-2);
+  font-size  : var(--font-size-xl);
+  font-weight: 700;
+  color      : var(--color-white);
+}
+
+.footer-brand i {
+  color    : var(--color-primary);
+  font-size: var(--font-size-2xl);
+}
+
+.footer-copyright {
+  font-size: var(--font-size-sm);
+  color    : rgba(255, 255, 255, 0.6);
+}
+
+.footer-disclaimer {
+  font-size  : var(--font-size-xs);
+  color      : rgba(255, 255, 255, 0.35);
+  max-width  : 420px;
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   13. RESPONSIVE DESIGN
+
+   Breakpoints (same as style.css):
+   — Tablet : max-width 1024px
+   — Mobile : max-width 768px
+   — Small  : max-width 480px
+   ============================================================ */
+
+/* -------- TABLET (≤ 1024px) -------- */
+@media (max-width: 1024px) {
+
+  .detection-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .url-info-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* -------- MOBILE (≤ 768px) -------- */
+@media (max-width: 768px) {
+
+  /* --- Navbar --- */
+  .nav-toggle {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+  }
+
+  .nav-links {
+    display       : none;   /* Hidden by default on mobile */
+    position      : absolute;
+    top           : var(--nav-height);
+    left          : 0;
+    width         : 100%;
+    flex-direction: column;
+    background    : var(--color-white);
+    border-bottom : 1px solid var(--color-border);
+    box-shadow    : var(--shadow-md);
+    padding       : var(--space-4) 0;
+    gap           : 0;
+    z-index       : 999;
+  }
+
+  /* JS adds this class to reveal the menu when the hamburger is clicked */
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-link {
+    padding      : var(--space-3) var(--space-6);
+    width        : 100%;
+    border-radius: 0;
+  }
+
+  .nav-link--register {
+    margin       : var(--space-3) var(--space-6);
+    width        : calc(100% - var(--space-12));
+    text-align   : center;
+    border-radius: var(--radius-pill);
+  }
+
+  /* --- Section spacing --- */
+  .section-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  /* --- Detection cards: single column --- */
+  .detection-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* --- Result status card: slightly smaller heading --- */
+  .result-status-card__heading {
+    font-size: var(--font-size-xl);
+  }
+
+  /* --- Action buttons: stack full width --- */
+  .result-actions-container {
+    flex-direction: column;
+    align-items   : stretch;
+  }
+
+  .hero-btn {
+    justify-content: center;
+  }
+}
+
+
+/* -------- SMALL MOBILE (≤ 480px) -------- */
+@media (max-width: 480px) {
+
+  .nav-container,
+  .result-hero-container,
+  .url-info-container,
+  .result-status-container,
+  .risk-score-container,
+  .detection-details-container,
+  .recommendation-container,
+  .result-actions-container,
+  .footer-container {
+    padding: 0 var(--space-4);
+  }
+
+  .url-info-card,
+  .risk-score-card,
+  .recommendation-card {
+    padding: var(--space-5);
+  }
+
+  .result-status-card {
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .hero-btn {
+    padding  : var(--space-3) var(--space-6);
+    font-size: var(--font-size-sm);
+  }
+}

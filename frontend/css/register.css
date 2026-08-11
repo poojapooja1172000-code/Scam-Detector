@@ -1,0 +1,826 @@
+/* ============================================================
+   SCAM DETECTOR — register.css
+   Author  : You
+   Project : Scam Detector (Educational)
+
+   TABLE OF CONTENTS
+   -----------------
+   1.  CSS Variables (Design Tokens)
+   2.  CSS Reset & Base Styles
+   3.  Reusable Container Utility
+   4.  Navigation Bar
+   5.  Register Hero Section
+   6.  Register Card Section
+   7.  Register Card
+   8.  Form Fields & Labels
+   9.  Input Wrapper & Icons
+   10. Input Fields
+   11. Password Toggle Buttons
+   12. Terms & Conditions Checkbox
+   13. Create Account (Submit) Button
+   14. Divider (OR)
+   15. Login Redirect Section
+   16. Footer
+   17. Responsive Design (Tablet & Mobile)
+   ============================================================ */
+
+
+/* ============================================================
+   1. CSS VARIABLES (DESIGN TOKENS)
+   — All colors, fonts, shadows defined once here.
+   — Same tokens as style.css so both pages look identical.
+   ============================================================ */
+
+:root {
+  /* Colors */
+  --color-primary       : #2563EB;
+  --color-primary-dark  : #1D4ED8;
+  --color-primary-light : #EFF6FF;
+  --color-success       : #16A34A;
+  --color-danger        : #DC2626;
+  --color-white         : #FFFFFF;
+  --color-bg            : #F8FAFC;
+  --color-dark          : #1F2937;
+  --color-text          : #374151;
+  --color-text-light    : #6B7280;
+  --color-border        : #E5E7EB;
+  --color-border-focus  : #2563EB;
+
+  /* Gradients */
+  --gradient-hero : linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 60%, #E0F2FE 100%);
+  --gradient-btn  : linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+
+  /* Typography */
+  --font-family   : 'Poppins', sans-serif;
+  --font-size-xs  : 0.75rem;
+  --font-size-sm  : 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg  : 1.125rem;
+  --font-size-xl  : 1.25rem;
+  --font-size-2xl : 1.5rem;
+  --font-size-3xl : 1.875rem;
+
+  /* Spacing */
+  --space-1 : 0.25rem;
+  --space-2 : 0.5rem;
+  --space-3 : 0.75rem;
+  --space-4 : 1rem;
+  --space-5 : 1.25rem;
+  --space-6 : 1.5rem;
+  --space-8 : 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Border Radius */
+  --radius-sm  : 6px;
+  --radius-md  : 12px;
+  --radius-lg  : 20px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm  : 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md  : 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg  : 0 10px 40px rgba(0, 0, 0, 0.10);
+  --shadow-nav : 0 2px 12px rgba(37, 99, 235, 0.08);
+  --shadow-card: 0 8px 32px rgba(37, 99, 235, 0.10);
+
+  /* Transitions */
+  --transition-fast  : 0.15s ease;
+  --transition-normal: 0.25s ease;
+
+  /* Layout */
+  --max-width : 1200px;
+  --nav-height: 72px;
+}
+
+
+/* ============================================================
+   2. CSS RESET & BASE STYLES
+   — Removes browser inconsistencies.
+   — Sets font and background for the whole page.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin    : 0;
+  padding   : 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family     : var(--font-family);
+  font-size       : var(--font-size-base);
+  color           : var(--color-text);
+  background-color: var(--color-bg);
+  line-height     : 1.6;
+  padding-top     : var(--nav-height);
+}
+
+a {
+  text-decoration: none;
+  color          : inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: var(--font-family);
+  cursor     : pointer;
+  border     : none;
+  background : none;
+}
+
+
+/* ============================================================
+   3. REUSABLE CONTAINER UTILITY
+   — Centers content and limits max width.
+   — Same pattern used on every page.
+   ============================================================ */
+
+.nav-container,
+.register-hero__container,
+.register-card-section__container,
+.footer-container {
+  max-width: var(--max-width);
+  margin   : 0 auto;
+  padding  : 0 var(--space-6);
+}
+
+
+/* ============================================================
+   4. NAVIGATION BAR
+   — Identical to style.css so navbar looks the same
+     on every page of the project.
+   ============================================================ */
+
+.navbar {
+  position     : fixed;
+  top          : 0;
+  left         : 0;
+  width        : 100%;
+  height       : var(--nav-height);
+  background   : var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow   : var(--shadow-nav);
+  z-index      : 1000;
+}
+
+.nav-container {
+  height         : 100%;
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.nav-logo {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-2);
+  font-size  : var(--font-size-xl);
+  font-weight: 700;
+  color      : var(--color-primary);
+  transition : opacity var(--transition-fast);
+}
+
+.nav-logo i {
+  font-size: var(--font-size-2xl);
+}
+
+.nav-logo:hover {
+  opacity: 0.85;
+}
+
+/* Nav links row */
+.nav-links {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-2);
+}
+
+/* Individual link */
+.nav-link {
+  font-size    : var(--font-size-sm);
+  font-weight  : 500;
+  color        : var(--color-text);
+  padding      : var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition   : color var(--transition-fast),
+                 background var(--transition-fast);
+}
+
+.nav-link:hover {
+  color     : var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.nav-link.active {
+  color      : var(--color-primary);
+  font-weight: 600;
+}
+
+/* Register button — pill-shaped filled blue button */
+.nav-link--register {
+  color        : var(--color-white);
+  background   : var(--gradient-btn);
+  border-radius: var(--radius-pill);
+  padding      : var(--space-2) var(--space-5);
+  font-weight  : 600;
+  box-shadow   : 0 2px 8px rgba(37, 99, 235, 0.25);
+  transition   : transform    var(--transition-fast),
+                 box-shadow   var(--transition-fast);
+}
+
+.nav-link--register:hover {
+  color     : var(--color-white);
+  background: var(--gradient-btn);
+  transform : translateY(-1px);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+}
+
+/* Hamburger button — hidden on desktop, shown on mobile */
+.nav-toggle {
+  display  : none;
+  font-size: var(--font-size-xl);
+  color    : var(--color-dark);
+  padding  : var(--space-2);
+}
+
+
+/* ============================================================
+   5. REGISTER HERO SECTION
+   — Short banner at the top with page title and subtitle.
+   — Uses the same gradient as the home page hero.
+   ============================================================ */
+
+.register-hero {
+  background: var(--gradient-hero);
+  padding   : var(--space-16) 0 var(--space-10);
+  text-align: center;
+}
+
+.register-hero__container {
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  gap           : var(--space-3);
+}
+
+.register-hero__title {
+  font-size    : var(--font-size-3xl);
+  font-weight  : 700;
+  color        : var(--color-dark);
+  letter-spacing: -0.5px;
+}
+
+.register-hero__subtitle {
+  font-size : var(--font-size-lg);
+  color     : var(--color-text-light);
+  max-width : 500px;
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   6. REGISTER CARD SECTION
+   — The outer section that centers the white card on screen.
+   ============================================================ */
+
+.register-card-section {
+  background: var(--color-bg);
+  padding   : var(--space-10) 0 var(--space-16);
+}
+
+.register-card-section__container {
+  display        : flex;
+  justify-content: center;
+  align-items    : flex-start;
+}
+
+
+/* ============================================================
+   7. REGISTER CARD
+   — The white box that holds the entire form.
+   — Centered, rounded corners, soft shadow.
+   ============================================================ */
+
+.register-card {
+  background   : var(--color-white);
+  border       : 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow   : var(--shadow-card);
+  padding      : var(--space-10) var(--space-10);
+  width        : 100%;
+  max-width    : 480px;
+
+  /* Fade in when page loads */
+  animation: cardFadeIn 0.35s ease both;
+}
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* The form inside the card */
+.register-card__form {
+  display       : flex;
+  flex-direction: column;
+  gap           : var(--space-5);
+}
+
+
+/* ============================================================
+   8. FORM FIELDS & LABELS
+   — Each field is a wrapper div containing a label and input.
+   ============================================================ */
+
+/* Outer wrapper for each field — stacks label above input */
+.register-card__field {
+  display       : flex;
+  flex-direction: column;
+  gap           : var(--space-2);
+}
+
+/* Label text above each input */
+.register-card__label {
+  font-size  : var(--font-size-sm);
+  font-weight: 600;
+  color      : var(--color-dark);
+}
+
+
+/* ============================================================
+   9. INPUT WRAPPER & ICONS
+   — The wrapper positions the left icon and right toggle
+     button inside the input box using relative/absolute.
+   ============================================================ */
+
+/* Relative parent so we can position icons inside it */
+.register-card__input-wrapper {
+  position: relative;
+  display : flex;
+  align-items: center;
+}
+
+/* Left icon (user / envelope / lock) */
+.register-card__input-icon {
+  position : absolute;
+  left     : var(--space-4);
+  top      : 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-base);
+  color    : var(--color-text-light);
+
+  /* Prevent the icon from capturing mouse clicks */
+  pointer-events: none;
+
+  /* Smooth color transition when input is focused */
+  transition: color var(--transition-fast);
+}
+
+/* When input inside the wrapper is focused, turn icon blue */
+.register-card__input-wrapper:focus-within .register-card__input-icon {
+  color: var(--color-primary);
+}
+
+
+/* ============================================================
+   10. INPUT FIELDS
+   — Rounded pill-style inputs with left padding for the icon
+     and right padding for the password toggle button.
+   ============================================================ */
+
+.register-card__input {
+  width        : 100%;
+  padding      : var(--space-4) var(--space-12) var(--space-4) var(--space-10);
+  font-family  : var(--font-family);
+  font-size    : var(--font-size-base);
+  color        : var(--color-dark);
+  background   : var(--color-white);
+  border       : 2px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  outline      : none;
+  box-shadow   : var(--shadow-sm);
+  transition   : border-color var(--transition-fast),
+                 box-shadow   var(--transition-fast);
+}
+
+/* Blue glow ring when the input is focused */
+.register-card__input:focus {
+  border-color: var(--color-border-focus);
+  box-shadow  : 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+/* Placeholder text color */
+.register-card__input::placeholder {
+  color: var(--color-text-light);
+}
+
+/* Red border for invalid inputs (JS adds this class later) */
+.register-card__input--error {
+  border-color: var(--color-danger);
+}
+
+.register-card__input--error:focus {
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12);
+}
+
+/* Green border for valid inputs (JS adds this class later) */
+.register-card__input--success {
+  border-color: var(--color-success);
+}
+
+.register-card__input--success:focus {
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12);
+}
+
+
+/* ============================================================
+   11. PASSWORD TOGGLE BUTTONS
+   — The eye icon button sits inside the input on the right.
+   — Uses absolute positioning relative to .register-card__input-wrapper.
+   ============================================================ */
+
+.register-card__toggle-password {
+  position : absolute;
+  right    : var(--space-4);
+  top      : 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-base);
+  color    : var(--color-text-light);
+  padding  : var(--space-1);
+  border   : none;
+  background: transparent;
+  cursor   : pointer;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.register-card__toggle-password:hover {
+  color: var(--color-primary);
+}
+
+/* Visible focus ring for keyboard users */
+.register-card__toggle-password:focus-visible {
+  outline      : 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+
+/* ============================================================
+   12. TERMS & CONDITIONS CHECKBOX
+   — Custom styled checkbox row with label beside it.
+   ============================================================ */
+
+.register-card__terms {
+  display    : flex;
+  align-items: flex-start;
+  gap        : var(--space-3);
+}
+
+/* The label wraps the checkbox + text so clicking the text
+   also toggles the checkbox — good UX */
+.register-card__checkbox-label {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-3);
+  font-size  : var(--font-size-sm);
+  color      : var(--color-text);
+  cursor     : pointer;
+  line-height: 1.5;
+}
+
+/* Custom styled checkbox */
+.register-card__checkbox {
+  width        : 18px;
+  height       : 18px;
+  flex-shrink  : 0;   /* Never shrink — keeps it square */
+  accent-color : var(--color-primary);  /* Colors the checkmark blue */
+  cursor       : pointer;
+  border-radius: var(--radius-sm);
+}
+
+/* Focus ring for keyboard users */
+.register-card__checkbox:focus-visible {
+  outline      : 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+
+/* ============================================================
+   13. CREATE ACCOUNT (SUBMIT) BUTTON
+   — Large full-width primary blue button.
+   — Lifts slightly on hover with stronger shadow.
+   ============================================================ */
+
+.register-card__submit-btn {
+  width          : 100%;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  gap            : var(--space-3);
+  padding        : var(--space-4) var(--space-8);
+  font-size      : var(--font-size-base);
+  font-weight    : 600;
+  color          : var(--color-white);
+  background     : var(--gradient-btn);
+  border-radius  : var(--radius-pill);
+  box-shadow     : 0 4px 14px rgba(37, 99, 235, 0.35);
+  transition     : transform    var(--transition-fast),
+                   box-shadow   var(--transition-fast),
+                   filter       var(--transition-fast);
+  margin-top     : var(--space-2);
+}
+
+.register-card__submit-btn:hover {
+  transform : translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+  filter    : brightness(1.05);
+}
+
+.register-card__submit-btn:active {
+  transform : translateY(0);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+/* Disabled state — used by JS while form is submitting */
+.register-card__submit-btn:disabled {
+  opacity: 0.6;
+  cursor : not-allowed;
+  transform: none;
+}
+
+/* Focus ring for keyboard users */
+.register-card__submit-btn:focus-visible {
+  outline      : 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+
+/* ============================================================
+   14. DIVIDER (OR)
+   — A horizontal line with the word "OR" in the center.
+   — Built using two span lines and one text span.
+   ============================================================ */
+
+.register-card__divider {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-4);
+  margin     : var(--space-6) 0 var(--space-4);
+}
+
+/* Left and right lines — flex:1 makes them fill available space equally */
+.register-card__divider-line {
+  flex        : 1;
+  height      : 1px;
+  background  : var(--color-border);
+  display     : block;
+}
+
+/* "OR" text in the middle */
+.register-card__divider-text {
+  font-size  : var(--font-size-xs);
+  font-weight: 600;
+  color      : var(--color-text-light);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   15. LOGIN REDIRECT SECTION
+   — "Already have an account?" text + outlined Login button.
+   — Button is secondary style — outline only, not filled.
+   ============================================================ */
+
+.register-card__login-redirect {
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  gap           : var(--space-3);
+  text-align    : center;
+}
+
+.register-card__login-redirect-text {
+  font-size: var(--font-size-sm);
+  color    : var(--color-text-light);
+}
+
+/* Outlined secondary button */
+.register-card__login-redirect-btn {
+  width        : 100%;
+  padding      : var(--space-3) var(--space-8);
+  font-size    : var(--font-size-base);
+  font-weight  : 600;
+  color        : var(--color-primary);
+  background   : transparent;
+  border       : 2px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  transition   : background   var(--transition-fast),
+                 color        var(--transition-fast),
+                 transform    var(--transition-fast),
+                 box-shadow   var(--transition-fast);
+}
+
+.register-card__login-redirect-btn:hover {
+  background: var(--color-primary);
+  color     : var(--color-white);
+  transform : translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+}
+
+.register-card__login-redirect-btn:active {
+  transform : translateY(0);
+  box-shadow: none;
+}
+
+.register-card__login-redirect-btn:focus-visible {
+  outline      : 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+
+/* ============================================================
+   16. FOOTER
+   — Identical to style.css footer for consistency.
+   ============================================================ */
+
+.footer {
+  background: var(--color-dark);
+  padding   : var(--space-12) 0;
+  color     : var(--color-white);
+}
+
+.footer-container {
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  gap           : var(--space-4);
+  text-align    : center;
+}
+
+.footer-brand {
+  display    : flex;
+  align-items: center;
+  gap        : var(--space-2);
+  font-size  : var(--font-size-xl);
+  font-weight: 700;
+  color      : var(--color-white);
+}
+
+.footer-brand i {
+  color    : var(--color-primary);
+  font-size: var(--font-size-2xl);
+}
+
+.footer-copyright {
+  font-size: var(--font-size-sm);
+  color    : rgba(255, 255, 255, 0.6);
+}
+
+.footer-disclaimer {
+  font-size  : var(--font-size-xs);
+  color      : rgba(255, 255, 255, 0.35);
+  max-width  : 420px;
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   17. RESPONSIVE DESIGN
+   
+   Breakpoints:
+   — Tablet : max-width 1024px
+   — Mobile : max-width 768px
+   — Small  : max-width 480px
+   ============================================================ */
+
+/* -------- TABLET (≤ 1024px) -------- */
+@media (max-width: 1024px) {
+
+  .register-hero__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .register-card {
+    padding: var(--space-8);
+  }
+}
+
+
+/* -------- MOBILE (≤ 768px) -------- */
+@media (max-width: 768px) {
+
+  /* --- Show hamburger, hide nav links --- */
+  .nav-toggle {
+    display    : flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-links {
+    display       : none;
+    position      : absolute;
+    top           : var(--nav-height);
+    left          : 0;
+    width         : 100%;
+    flex-direction: column;
+    background    : var(--color-white);
+    border-bottom : 1px solid var(--color-border);
+    box-shadow    : var(--shadow-md);
+    padding       : var(--space-4) 0;
+    gap           : 0;
+    z-index       : 999;
+  }
+
+  /* JS adds this class when hamburger is clicked */
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-link {
+    padding      : var(--space-3) var(--space-6);
+    width        : 100%;
+    border-radius: 0;
+  }
+
+  .nav-link--register {
+    margin       : var(--space-3) var(--space-6);
+    width        : calc(100% - 3rem);
+    text-align   : center;
+    border-radius: var(--radius-pill);
+  }
+
+  /* --- Hero --- */
+  .register-hero {
+    padding: var(--space-10) 0 var(--space-8);
+  }
+
+  .register-hero__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .register-hero__subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  /* --- Card --- */
+  .register-card {
+    padding  : var(--space-6);
+    max-width: 100%;
+  }
+
+  .register-card-section {
+    padding: var(--space-6) 0 var(--space-12);
+  }
+
+  .register-card-section__container {
+    padding: 0 var(--space-4);
+  }
+}
+
+
+/* -------- SMALL MOBILE (≤ 480px) -------- */
+@media (max-width: 480px) {
+
+  .nav-container,
+  .register-hero__container,
+  .footer-container {
+    padding: 0 var(--space-4);
+  }
+
+  .register-hero__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .register-card {
+    padding      : var(--space-5);
+    border-radius: var(--radius-md);
+  }
+
+  .register-card__input {
+    font-size: var(--font-size-sm);
+    padding  : var(--space-3) var(--space-10) var(--space-3) var(--space-10);
+  }
+
+  .register-card__submit-btn {
+    font-size: var(--font-size-sm);
+    padding  : var(--space-3) var(--space-6);
+  }
+
+  .register-card__login-redirect-btn {
+    font-size: var(--font-size-sm);
+    padding  : var(--space-3) var(--space-6);
+  }
+}

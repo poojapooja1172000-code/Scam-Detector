@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Character encoding — tells the browser to support all languages/symbols -->
+  <meta charset="UTF-8" />
+
+  <!-- Makes the page look good on mobile screens too -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tab title -->
+  <title>Scam Detector — Check if a URL is Safe</title>
+
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Your own stylesheet (write this later) -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- ========== NAVIGATION BAR ========== -->
+  <header class="navbar">
+    <nav class="nav-container">
+
+      <!-- Logo / Brand name -->
+      <a href="index.html" class="nav-logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Scam Detector</span>
+      </a>
+
+      <!-- Navigation links -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="history.html" class="nav-link">History</a></li>
+        <li><a href="login.html" class="nav-link">Login</a></li>
+        <li><a href="register.html" class="nav-link nav-link--register">Register</a></li>
+      </ul>
+
+      <!-- Hamburger icon for mobile (controlled via JS later) -->
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </nav>
+  </header>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero">
+      <div class="hero-container">
+
+        <!-- Left: Text and input -->
+        <div class="hero-content">
+          <h1 class="hero-heading">
+            Is That URL <span class="hero-heading--highlight">Safe or a Scam?</span>
+          </h1>
+          <p class="hero-description">
+            Paste any website link below and instantly find out whether it is
+            safe to visit, suspicious, or a known scam. Protect yourself before
+            you click.
+          </p>
+
+          <!-- URL input + button -->
+          <div class="hero-input-group">
+            <input
+              type="url"
+              id="urlInput"
+              class="hero-input"
+              placeholder="https://example.com"
+              aria-label="Enter a URL to analyze"
+            />
+            <button type="button" id="analyzeBtn" class="hero-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              Analyze URL
+            </button>
+          </div>
+
+          <!-- Small helper text under the input -->
+          <p class="hero-helper-text">
+            <i class="fa-solid fa-circle-info"></i>
+            Paste a full URL including https://
+          </p>
+        </div>
+
+        <!-- Right: Illustration icon -->
+        <div class="hero-illustration" aria-hidden="true">
+          <i class="fa-solid fa-shield-halved hero-icon"></i>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section class="features" id="features">
+      <div class="features-container">
+
+        <h2 class="section-title">Why Use Scam Detector?</h2>
+        <p class="section-subtitle">
+          Three powerful reasons to check every link before you click.
+        </p>
+
+        <!-- Feature cards -->
+        <div class="features-grid">
+
+          <!-- Card 1 -->
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <i class="fa-solid fa-bug-slash"></i>
+            </div>
+            <h3 class="feature-card__title">Detect Scam Websites</h3>
+            <p class="feature-card__description">
+              Our system checks URLs against known scam patterns and flags
+              dangerous links before you visit them.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h3 class="feature-card__title">Fast URL Analysis</h3>
+            <p class="feature-card__description">
+              Get your result in seconds. No waiting, no sign-up required for a
+              basic check — just paste and go.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 class="feature-card__title">Secure Browsing</h3>
+            <p class="feature-card__description">
+              Stay safer online by verifying unfamiliar links from emails,
+              messages, or social media before clicking.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== HOW IT WORKS SECTION ========== -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="how-it-works-container">
+
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Four simple steps to stay safe online.</p>
+
+        <!-- Steps -->
+        <div class="steps">
+
+          <!-- Step 1 -->
+          <div class="step">
+            <div class="step__number">1</div>
+            <div class="step__icon"><i class="fa-solid fa-paste"></i></div>
+            <h3 class="step__title">Paste URL</h3>
+            <p class="step__description">Copy any link and paste it into the input box on this page.</p>
+          </div>
+
+          <!-- Arrow between steps -->
+          <div class="step-arrow" aria-hidden="true">
+            <i class="fa-solid fa-arrow-down"></i>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step">
+            <div class="step__number">2</div>
+            <div class="step__icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+            <h3 class="step__title">Analyze URL</h3>
+            <p class="step__description">Click the Analyze button. Our system scans the URL instantly.</p>
+          </div>
+
+          <div class="step-arrow" aria-hidden="true">
+            <i class="fa-solid fa-arrow-down"></i>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step">
+            <div class="step__number">3</div>
+            <div class="step__icon"><i class="fa-solid fa-chart-pie"></i></div>
+            <h3 class="step__title">View Result</h3>
+            <p class="step__description">See the verdict — Safe, Suspicious, or Scam — with a full explanation.</p>
+          </div>
+
+          <div class="step-arrow" aria-hidden="true">
+            <i class="fa-solid fa-arrow-down"></i>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step">
+            <div class="step__number">4</div>
+            <div class="step__icon"><i class="fa-solid fa-user-shield"></i></div>
+            <h3 class="step__title">Stay Safe</h3>
+            <p class="step__description">Make an informed decision — visit the site or avoid it confidently.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-container">
+
+      <!-- Brand name in footer -->
+      <div class="footer-brand">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Scam Detector</span>
+      </div>
+
+      <!-- Copyright -->
+      <p class="footer-copyright">
+        &copy; 2026 Scam Detector. All rights reserved.
+      </p>
+
+      <!-- Educational purpose note -->
+      <p class="footer-disclaimer">
+        Built for educational purposes only. Not a substitute for professional
+        cybersecurity tools.
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- Your own JavaScript (write this later) -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>

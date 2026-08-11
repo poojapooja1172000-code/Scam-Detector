@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Character encoding — tells the browser to support all languages/symbols -->
+  <meta charset="UTF-8" />
+
+  <!-- Makes the page look good on mobile screens too -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tab title -->
+  <title>Scam Detector — Scan History</title>
+
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- History page stylesheet -->
+  <link rel="stylesheet" href="css/history.css" />
+</head>
+
+<body>
+
+  <!-- ========== NAVIGATION BAR (copied exactly from index.html) ========== -->
+  <header class="navbar">
+    <nav class="nav-container">
+
+      <!-- Logo / Brand name -->
+      <a href="index.html" class="nav-logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Scam Detector</span>
+      </a>
+
+      <!-- Navigation links -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="history.html" class="nav-link active">History</a></li>
+        <li><a href="login.html" class="nav-link">Login</a></li>
+        <li><a href="register.html" class="nav-link nav-link--register">Register</a></li>
+      </ul>
+
+      <!-- Hamburger icon for mobile (controlled via JS later) -->
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </nav>
+  </header>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main>
+
+    <!-- ========== HISTORY HERO SECTION ========== -->
+    <section class="history-hero">
+      <div class="history-hero__container">
+        <h1 class="history-hero__title">Scan History</h1>
+        <p class="history-hero__subtitle">
+          View all previously scanned URLs and their analysis results.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== SEARCH SECTION ========== -->
+    <section class="history-search">
+      <div class="history-search__container">
+        <div class="history-search__box">
+          <i class="fa-solid fa-magnifying-glass history-search__icon" aria-hidden="true"></i>
+          <input
+            type="text"
+            id="historySearch"
+            class="history-search__input"
+            placeholder="Search by URL or Domain..."
+            aria-label="Search scan history by URL or domain"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== HISTORY TABLE SECTION ========== -->
+    <section class="history-table-section">
+      <div class="history-table-section__container">
+
+        <!-- Wrapper allows the table to scroll horizontally on small screens -->
+        <div class="history-table-wrapper">
+          <table class="history-table">
+
+            <!-- Table header -->
+            <thead class="history-table__head">
+              <tr>
+                <th scope="col">Website URL</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Status</th>
+                <th scope="col">Risk Score</th>
+                <th scope="col">Scan Date</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+
+            <!-- Table body; rows below are placeholder data.
+                 JavaScript will replace/populate this later using id="historyTableBody" -->
+            <tbody class="history-table__body" id="historyTableBody">
+
+              <!-- Sample Row 1 -->
+              <tr class="history-table__row">
+                <td class="history-table__cell history-table__cell--url">https://google.com</td>
+                <td class="history-table__cell">google.com</td>
+                <td class="history-table__cell">
+                  <span class="history-status-badge history-status-badge--safe">SAFE</span>
+                </td>
+                <td class="history-table__cell">10%</td>
+                <td class="history-table__cell">04 Jul 2026</td>
+                <td class="history-table__cell history-table__cell--actions">
+                  <button type="button" class="history-action-btn history-action-btn--view" aria-label="View scan details for google.com">
+                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                    View
+                  </button>
+                  <button type="button" class="history-action-btn history-action-btn--delete" aria-label="Delete scan history for google.com">
+                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Sample Row 2 -->
+              <tr class="history-table__row">
+                <td class="history-table__cell history-table__cell--url">https://free-gift-cards-now.com</td>
+                <td class="history-table__cell">free-gift-cards-now.com</td>
+                <td class="history-table__cell">
+                  <span class="history-status-badge history-status-badge--scam">SCAM</span>
+                </td>
+                <td class="history-table__cell">92%</td>
+                <td class="history-table__cell">03 Jul 2026</td>
+                <td class="history-table__cell history-table__cell--actions">
+                  <button type="button" class="history-action-btn history-action-btn--view" aria-label="View scan details for free-gift-cards-now.com">
+                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                    View
+                  </button>
+                  <button type="button" class="history-action-btn history-action-btn--delete" aria-label="Delete scan history for free-gift-cards-now.com">
+                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Sample Row 3 -->
+              <tr class="history-table__row">
+                <td class="history-table__cell history-table__cell--url">https://mystery-prize-claim.net</td>
+                <td class="history-table__cell">mystery-prize-claim.net</td>
+                <td class="history-table__cell">
+                  <span class="history-status-badge history-status-badge--suspicious">SUSPICIOUS</span>
+                </td>
+                <td class="history-table__cell">58%</td>
+                <td class="history-table__cell">02 Jul 2026</td>
+                <td class="history-table__cell history-table__cell--actions">
+                  <button type="button" class="history-action-btn history-action-btn--view" aria-label="View scan details for mystery-prize-claim.net">
+                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                    View
+                  </button>
+                  <button type="button" class="history-action-btn history-action-btn--delete" aria-label="Delete scan history for mystery-prize-claim.net">
+                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Sample Row 4 -->
+              <tr class="history-table__row">
+                <td class="history-table__cell history-table__cell--url">https://wikipedia.org</td>
+                <td class="history-table__cell">wikipedia.org</td>
+                <td class="history-table__cell">
+                  <span class="history-status-badge history-status-badge--safe">SAFE</span>
+                </td>
+                <td class="history-table__cell">5%</td>
+                <td class="history-table__cell">01 Jul 2026</td>
+                <td class="history-table__cell history-table__cell--actions">
+                  <button type="button" class="history-action-btn history-action-btn--view" aria-label="View scan details for wikipedia.org">
+                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                    View
+                  </button>
+                  <button type="button" class="history-action-btn history-action-btn--delete" aria-label="Delete scan history for wikipedia.org">
+                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Sample Row 5 -->
+              <tr class="history-table__row">
+                <td class="history-table__cell history-table__cell--url">https://secure-bank-login-update.com</td>
+                <td class="history-table__cell">secure-bank-login-update.com</td>
+                <td class="history-table__cell">
+                  <span class="history-status-badge history-status-badge--scam">SCAM</span>
+                </td>
+                <td class="history-table__cell">97%</td>
+                <td class="history-table__cell">30 Jun 2026</td>
+                <td class="history-table__cell history-table__cell--actions">
+                  <button type="button" class="history-action-btn history-action-btn--view" aria-label="View scan details for secure-bank-login-update.com">
+                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                    View
+                  </button>
+                  <button type="button" class="history-action-btn history-action-btn--delete" aria-label="Delete scan history for secure-bank-login-update.com">
+                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ========== EMPTY STATE SECTION ========== -->
+        <!-- Hidden for now via the "history-empty-state--hidden" class.
+             JavaScript will show this later when there is no scan history. -->
+        <div class="history-empty-state history-empty-state--hidden">
+          <i class="fa-solid fa-clock-rotate-left history-empty-state__icon" aria-hidden="true"></i>
+          <h2 class="history-empty-state__heading">No Scan History Found</h2>
+          <p class="history-empty-state__text">
+            Your previously scanned URLs will appear here.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+     <!-- ============================================================
+       VIEW SCAN DETAILS MODAL
+       ============================================================ -->
+
+  <div
+    class="scan-modal"
+    id="scanDetailsModal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="scan-modal__overlay"
+      id="scanModalOverlay"
+    ></div>
+
+    <div
+      class="scan-modal__content"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="scanModalTitle"
+    >
+
+      <!-- Modal Header -->
+      <div class="scan-modal__header">
+
+        <div class="scan-modal__title-wrapper">
+          <i
+            class="fa-solid fa-shield-halved scan-modal__title-icon"
+            aria-hidden="true"
+          ></i>
+
+          <h2
+            class="scan-modal__title"
+            id="scanModalTitle"
+          >
+            Scan Details
+          </h2>
+        </div>
+
+        <button
+          type="button"
+          class="scan-modal__close"
+          id="scanModalClose"
+          aria-label="Close scan details"
+        >
+          <i
+            class="fa-solid fa-xmark"
+            aria-hidden="true"
+          ></i>
+        </button>
+
+      </div>
+
+
+      <!-- Modal Body -->
+      <div class="scan-modal__body">
+
+        <!-- URL -->
+        <div class="scan-modal__item scan-modal__item--full">
+          <span class="scan-modal__label">
+            Website URL
+          </span>
+
+          <p
+            class="scan-modal__value scan-modal__url"
+            id="modalScanUrl"
+          >
+            —
+          </p>
+        </div>
+
+
+        <!-- Domain -->
+        <div class="scan-modal__item">
+          <span class="scan-modal__label">
+            Domain
+          </span>
+
+          <p
+            class="scan-modal__value"
+            id="modalScanDomain"
+          >
+            —
+          </p>
+        </div>
+
+
+        <!-- HTTPS -->
+        <div class="scan-modal__item">
+          <span class="scan-modal__label">
+            HTTPS
+          </span>
+
+          <p
+            class="scan-modal__value"
+            id="modalScanHttps"
+          >
+            —
+          </p>
+        </div>
+
+
+        <!-- Status -->
+        <div class="scan-modal__item">
+          <span class="scan-modal__label">
+            Status
+          </span>
+
+          <span
+            class="scan-modal__status"
+            id="modalScanStatus"
+          >
+            —
+          </span>
+        </div>
+
+
+        <!-- Risk Score -->
+        <div class="scan-modal__item">
+          <span class="scan-modal__label">
+            Risk Score
+          </span>
+
+          <p
+            class="scan-modal__value"
+            id="modalScanRisk"
+          >
+            —
+          </p>
+        </div>
+
+
+        <!-- Scan Date -->
+        <div class="scan-modal__item">
+          <span class="scan-modal__label">
+            Scan Date
+          </span>
+
+          <p
+            class="scan-modal__value"
+            id="modalScanDate"
+          >
+            —
+          </p>
+        </div>
+
+
+        <!-- Reasons -->
+        <div class="scan-modal__item scan-modal__item--full">
+
+          <span class="scan-modal__label">
+            Analysis
+          </span>
+
+          <div
+            class="scan-modal__reasons"
+            id="modalScanReasons"
+          >
+            No analysis information available.
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Modal Footer -->
+      <div class="scan-modal__footer">
+
+        <button
+          type="button"
+          class="scan-modal__close-btn"
+          id="scanModalCloseBtn"
+        >
+          Close
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-container">
+
+      <!-- Brand name in footer -->
+      <div class="footer-brand">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Scam Detector</span>
+      </div>
+
+      <!-- Copyright -->
+      <p class="footer-copyright">
+        &copy; 2026 Scam Detector. All rights reserved.
+      </p>
+
+      <!-- Educational purpose note -->
+      <p class="footer-disclaimer">
+        Built for educational purposes only. Not a substitute for professional
+        cybersecurity tools.
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- History page JavaScript (write this later) -->
+  <script src="js/history.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Character encoding — tells the browser to support all languages/symbols -->
+  <meta charset="UTF-8" />
+
+  <!-- Makes the page look good on mobile screens too -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tab title -->
+  <title>Scam Detector — URL Analysis Result</title>
+
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Result page stylesheet -->
+  <link rel="stylesheet" href="css/result.css" />
+</head>
+
+<body>
+
+  <!-- ========== NAVIGATION BAR (copied exactly from index.html) ========== -->
+  <header class="navbar">
+    <nav class="nav-container">
+
+      <!-- Logo / Brand name -->
+      <a href="index.html" class="nav-logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Scam Detector</span>
+      </a>
+
+      <!-- Navigation links -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="history.html" class="nav-link">History</a></li>
+        <li><a href="login.html" class="nav-link">Login</a></li>
+        <li><a href="register.html" class="nav-link nav-link--register">Register</a></li>
+      </ul>
+
+      <!-- Hamburger icon for mobile (controlled via JS later) -->
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </nav>
+  </header>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main>
+
+    <!-- ========== RESULT HERO SECTION ========== -->
+    <section class="result-hero">
+      <div class="result-hero-container">
+        <h1 class="section-title">URL Analysis Result</h1>
+        <p class="section-subtitle">
+          We've analyzed the URL you submitted. Review the details below to see whether it's safe to visit.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== URL INFORMATION CARD ========== -->
+    <section class="url-info" id="url-info">
+      <div class="url-info-container">
+
+        <div class="url-info-card">
+
+          <!-- Website URL -->
+          <div class="url-info-row">
+            <div class="url-info-row__icon">
+              <i class="fa-solid fa-link"></i>
+            </div>
+            <div class="url-info-row__text">
+              <span class="url-info-row__label">Website URL</span>
+              <!-- Placeholder value, updated later by result.js -->
+              <span class="url-info-row__value" id="scannedUrl">https://example.com</span>
+            </div>
+          </div>
+
+          <!-- Domain -->
+          <div class="url-info-row">
+            <div class="url-info-row__icon">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <div class="url-info-row__text">
+              <span class="url-info-row__label">Domain</span>
+              <span class="url-info-row__value" id="scannedDomain">example.com</span>
+            </div>
+          </div>
+
+          <!-- HTTPS Status -->
+          <div class="url-info-row">
+            <div class="url-info-row__icon">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="url-info-row__text">
+              <span class="url-info-row__label">HTTPS Status</span>
+              <span class="url-info-row__value" id="httpsStatus">HTTPS Enabled</span>
+            </div>
+          </div>
+
+          <!-- Scan Time -->
+          <div class="url-info-row">
+            <div class="url-info-row__icon">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="url-info-row__text">
+              <span class="url-info-row__label">Scan Time</span>
+              <span class="url-info-row__value" id="scanTime">Today, 10:30 AM</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== RESULT STATUS CARD ========== -->
+    <section class="result-status" id="result-status">
+      <div class="result-status-container">
+        <div class="result-status-card">
+
+          <!-- Shield icon; color/state controlled later by result.js/result.css -->
+          <i class="fa-solid fa-shield-halved result-status-card__icon"></i>
+
+          <!-- Placeholder status text: SAFE / SUSPICIOUS / SCAM -->
+          <p class="result-status-card__badge" id="resultStatus">SAFE</p>
+
+          <h2 class="result-status-card__heading">
+            This website appears to be safe.
+          </h2>
+
+          <p class="result-status-card__description">
+            Our scan did not detect any known scam patterns, suspicious redirects, or blacklisted content associated with this URL.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== RISK SCORE SECTION ========== -->
+    <section class="risk-score" id="risk-score">
+      <div class="risk-score-container">
+        <h2 class="section-title">Risk Score</h2>
+
+        <div class="risk-score-card">
+          <div class="risk-score-card__top">
+            <span class="risk-score-card__label">Overall Risk</span>
+            <!-- Placeholder percentage, updated later by result.js -->
+            <span class="risk-score-card__value" id="riskScore">10%</span>
+          </div>
+
+          <!-- Progress bar showing risk visually (no inline styles — width comes from a class) -->
+          <div class="risk-score-bar" role="progressbar" aria-label="Risk score" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+            <div class="risk-score-bar__fill risk-score-bar__fill--low" id="riskScoreFill"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== DETECTION DETAILS ========== -->
+    <section class="detection-details" id="detection-details">
+      <div class="detection-details-container">
+
+        <h2 class="section-title">Detection Details</h2>
+        <p class="section-subtitle">
+          A breakdown of every check performed during the scan.
+        </p>
+
+        <div class="detection-details-grid">
+
+          <!-- Card 1: HTTPS Check -->
+          <div class="detection-card">
+            <div class="detection-card__icon">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 class="detection-card__title">HTTPS Check</h3>
+            <p class="detection-card__description">
+              Verifies whether the website uses a secure encrypted connection.
+            </p>
+            <span class="detection-card__badge detection-card__badge--passed">Passed</span>
+          </div>
+
+          <!-- Card 2: Domain Reputation -->
+          <div class="detection-card">
+            <div class="detection-card__icon">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <h3 class="detection-card__title">Domain Reputation</h3>
+            <p class="detection-card__description">
+              Checks the domain's age, trust score, and history of reported abuse.
+            </p>
+            <span class="detection-card__badge detection-card__badge--passed">Passed</span>
+          </div>
+
+          <!-- Card 3: URL Structure -->
+          <div class="detection-card">
+            <div class="detection-card__icon">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <h3 class="detection-card__title">URL Structure</h3>
+            <p class="detection-card__description">
+              Analyzes the URL for suspicious patterns such as misspellings or hidden redirects.
+            </p>
+            <span class="detection-card__badge detection-card__badge--warning">Warning</span>
+          </div>
+
+          <!-- Card 4: Blacklist Check -->
+          <div class="detection-card">
+            <div class="detection-card__icon">
+              <i class="fa-solid fa-ban"></i>
+            </div>
+            <h3 class="detection-card__title">Blacklist Check</h3>
+            <p class="detection-card__description">
+              Cross-checks the URL against known scam and phishing blacklists.
+            </p>
+            <span class="detection-card__badge detection-card__badge--passed">Passed</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== RECOMMENDED ACTION ========== -->
+    <section class="recommendation" id="recommendation">
+      <div class="recommendation-container">
+        <div class="recommendation-card">
+          <i class="fa-solid fa-shield-halved recommendation-card__icon"></i>
+          <h2 class="recommendation-card__heading">Recommended Action</h2>
+          <!-- Placeholder recommendation text, updated later by result.js -->
+          <p class="recommendation-card__text" id="recommendationText">
+            This website currently appears safe. Continue browsing carefully.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ACTION BUTTONS ========== -->
+    <section class="result-actions" id="result-actions">
+      <div class="result-actions-container">
+        <button type="button" class="hero-btn" id="analyzeAnotherBtn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Analyze Another URL
+        </button>
+
+        <button type="button" class="hero-btn hero-btn--secondary" id="goHistoryBtn">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          Go to History
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER (copied exactly from index.html) ========== -->
+  <footer class="footer">
+    <div class="footer-container">
+
+      <!-- Brand name in footer -->
+      <div class="footer-brand">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Scam Detector</span>
+      </div>
+
+      <!-- Copyright -->
+      <p class="footer-copyright">
+        &copy; 2026
+     Scam Detector. All rights reserved.
+      </p>
+
+      <!-- Educational purpose note -->
+      <p class="footer-disclaimer">
+        Built for educational purposes only. Not a substitute for professional
+        cybersecurity tools.
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- Result page JavaScript (write this later) -->
+  <script src="js/result.js"></script>
+
+</body>
+</html>
