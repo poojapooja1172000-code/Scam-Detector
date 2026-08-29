@@ -111,7 +111,27 @@ const analyzeURL = async function (req, res) {
     let riskScore = 0;
 
     const reasons = [];
+    const checks = {
+  https: {
+    status: "Passed",
+    message: "The website uses a secure HTTPS connection."
+  },
 
+  domainReputation: {
+    status: "Passed",
+    message: "No obvious suspicious domain characteristics were detected."
+  },
+
+  urlStructure: {
+    status: "Passed",
+    message: "The URL structure appears normal."
+  },
+
+  blacklist: {
+    status: "Passed",
+    message: "No blacklist indicators were detected by the current scanner."
+  }
+};
 
     /* --------------------------------------------------------
        1. CHECK HTTPS
@@ -119,13 +139,18 @@ const analyzeURL = async function (req, res) {
 
     if (!isHTTPS) {
 
-      riskScore += 30;
+  riskScore += 30;
 
-      reasons.push(
-        "The website does not use HTTPS"
-      );
+  reasons.push(
+    "The website does not use HTTPS"
+  );
 
-    }
+  checks.https = {
+    status: "Warning",
+    message: "The website does not use HTTPS."
+  };
+
+}
 
 
     /* --------------------------------------------------------
@@ -149,13 +174,18 @@ const analyzeURL = async function (req, res) {
 
     if (trimmedURL.includes("@")) {
 
-      riskScore += 25;
+  riskScore += 25;
 
-      reasons.push(
-        "The URL contains an @ symbol"
-      );
+  reasons.push(
+    "The URL contains an @ symbol"
+  );
 
-    }
+  checks.urlStructure = {
+    status: "Warning",
+    message: "The URL contains an @ symbol, which can be used to disguise the actual destination."
+  };
+
+}
 
 
     /* --------------------------------------------------------
@@ -188,13 +218,19 @@ const analyzeURL = async function (req, res) {
 
     if (hasSuspiciousTLD) {
 
-      riskScore += 30;
+  riskScore += 30;
 
-      reasons.push(
-        "The domain uses a suspicious extension"
-      );
+  reasons.push(
+    "The domain uses a suspicious extension"
+  );
 
-    }
+  checks.domainReputation = {
+    status: "Warning",
+    message: "The domain uses a suspicious extension."
+  };
+
+}
+
 
 
     /* --------------------------------------------------------
@@ -372,11 +408,14 @@ const analyzeURL = async function (req, res) {
           savedScan.riskScore,
 
         reasons:
-          savedScan.reasons,
+  savedScan.reasons,
 
-        scannedAt:
-          savedScan.scannedAt,
+checks:
+  checks,
 
+scannedAt:
+  savedScan.scannedAt,
+  
       },
 
     });

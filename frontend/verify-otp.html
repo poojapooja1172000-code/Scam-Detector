@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Scam Detector — Verify OTP</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <!-- Existing common stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ============================================================
+       VERIFY OTP PAGE
+       ============================================================ */
+
+    .verify-otp-section {
+      min-height: calc(100vh - 160px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+    }
+
+    .verify-otp-card {
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .verify-otp-card__icon {
+      width: 65px;
+      height: 65px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #eef4ff;
+      color: #2563eb;
+      font-size: 28px;
+    }
+
+    .verify-otp-card__title {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .verify-otp-card__description {
+      text-align: center;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .verify-otp-form__field {
+      margin-bottom: 22px;
+    }
+
+    .verify-otp-form__label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .verify-otp-form__input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px;
+      border: 1px solid #dcdcdc;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 22px;
+      letter-spacing: 8px;
+      text-align: center;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .verify-otp-form__input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .verify-otp-form__submit {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      background: #2563eb;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .verify-otp-form__submit:hover {
+      background: #1d4ed8;
+    }
+
+    .verify-otp-form__submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .verify-otp-message {
+      display: none;
+      margin-top: 20px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .verify-otp-message.success {
+      display: block;
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    .verify-otp-message.error {
+      display: block;
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .verify-otp-back {
+      display: block;
+      margin-top: 25px;
+      text-align: center;
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .verify-otp-back:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .verify-otp-card {
+        padding: 28px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION BAR
+       ============================================================ -->
+
+  <header class="navbar">
+
+    <nav class="nav-container">
+
+      <a href="index.html" class="nav-logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Scam Detector</span>
+      </a>
+
+      <ul class="nav-links">
+
+        <li>
+          <a href="index.html" class="nav-link">Home</a>
+        </li>
+
+        <li>
+          <a href="history.html" class="nav-link">History</a>
+        </li>
+
+        <li>
+          <a href="login.html" class="nav-link">Login</a>
+        </li>
+
+        <li>
+          <a href="register.html" class="nav-link nav-link--register">
+            Register
+          </a>
+        </li>
+
+      </ul>
+
+      <button
+        class="nav-toggle"
+        aria-label="Toggle navigation"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </nav>
+
+  </header>
+
+
+  <!-- ============================================================
+       MAIN CONTENT
+       ============================================================ -->
+
+  <main>
+
+    <section class="verify-otp-section">
+
+      <div class="verify-otp-card">
+
+        <!-- Icon -->
+        <div class="verify-otp-card__icon">
+          <i class="fa-solid fa-shield-check"></i>
+        </div>
+
+
+        <!-- Title -->
+        <h1 class="verify-otp-card__title">
+          Verify OTP
+        </h1>
+
+
+        <!-- Description -->
+        <p class="verify-otp-card__description">
+          Enter the 6-digit OTP sent to your email address.
+        </p>
+
+
+        <!-- ======================================================
+             OTP FORM
+             ====================================================== -->
+
+        <form id="verifyOtpForm">
+
+          <div class="verify-otp-form__field">
+
+            <label
+              for="otpInput"
+              class="verify-otp-form__label"
+            >
+              Enter OTP
+            </label>
+
+            <input
+              type="text"
+              id="otpInput"
+              name="otp"
+              class="verify-otp-form__input"
+              placeholder="000000"
+              maxlength="6"
+              inputmode="numeric"
+              autocomplete="one-time-code"
+              required
+            />
+
+          </div>
+
+
+          <!-- Verify OTP button -->
+          <button
+            type="submit"
+            id="verifyOtpBtn"
+            class="verify-otp-form__submit"
+          >
+            <i class="fa-solid fa-circle-check"></i>
+            Verify OTP
+          </button>
+
+        </form>
+
+
+        <!-- Response message -->
+        <div
+          id="verifyOtpMessage"
+          class="verify-otp-message"
+        ></div>
+
+
+        <!-- Back -->
+        <a
+          href="forgot-password.html"
+          class="verify-otp-back"
+        >
+          <i class="fa-solid fa-arrow-left"></i>
+          Back to Forgot Password
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+
+  <footer class="footer">
+
+    <div class="footer-container">
+
+      <div class="footer-brand">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Scam Detector</span>
+      </div>
+
+      <p class="footer-copyright">
+        &copy; 2026 Scam Detector. All rights reserved.
+      </p>
+
+      <p class="footer-disclaimer">
+        Built for educational purposes only. Not a substitute for
+        professional cybersecurity tools.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+
+  <script src="js/verify-otp.js"></script>
+
+</body>
+
+</html>

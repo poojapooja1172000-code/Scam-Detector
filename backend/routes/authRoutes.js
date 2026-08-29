@@ -1,9 +1,14 @@
 "use strict";
 
 /* ============================================================
-   SCAM DETECTOR — authRoutes.js
-   Defines the URL paths (routes) related to authentication.
-   Right now this only handles user registration.
+   SCAM DETECTOR — backend/routes/authRoutes.js
+
+   Authentication routes:
+   - Register
+   - Login
+   - Forgot Password
+   - Verify OTP
+   - Reset Password
    ============================================================ */
 
 
@@ -11,43 +16,92 @@
    1. IMPORTS
    ============================================================ */
 
-// Express is needed to create a Router
 const express = require("express");
 
-// registerUser is the function that actually creates a new
-// user in the database — it lives in authController.js
 const {
   registerUser,
   loginUser,
+  forgotPassword,
+  verifyOTP,
+  resetPassword,
 } = require("../controllers/authController");
 
 
 /* ============================================================
-   2. CREATE THE ROUTER
-   A Router is like a mini version of the app that only
-   handles routes related to authentication. server.js will
-   later plug this router into the main app.
+   2. CREATE ROUTER
    ============================================================ */
+
 const router = express.Router();
 
 
 /* ============================================================
-   3. ROUTES
+   3. AUTHENTICATION ROUTES
    ============================================================ */
 
-// POST /register
-// When the frontend sends a POST request to /register
-// (with name, email, and password in the request body),
-// this route hands the request off to registerUser to
-// actually create the new account.
+
+/*
+   Register User
+
+   POST /api/auth/register
+*/
 router.post("/register", registerUser);
+
+
+/*
+   Login User
+
+   POST /api/auth/login
+*/
 router.post("/login", loginUser);
 
 
+/*
+   Forgot Password
+
+   POST /api/auth/forgot-password
+
+   Request body:
+
+   {
+     "email": "user@example.com"
+   }
+*/
+router.post("/forgot-password", forgotPassword);
+
+
+/*
+   Verify OTP
+
+   POST /api/auth/verify-otp
+
+   Request body:
+
+   {
+     "email": "user@example.com",
+     "otp": "482731"
+   }
+*/
+router.post("/verify-otp", verifyOTP);
+
+
+/*
+   Reset Password
+
+   POST /api/auth/reset-password
+
+   Request body:
+
+   {
+     "email": "user@example.com",
+     "otp": "482731",
+     "newPassword": "newpassword123"
+   }
+*/
+router.post("/reset-password", resetPassword);
+
 
 /* ============================================================
-   4. EXPORT THE ROUTER
-   Makes this router available to server.js (or any other
-   file) so it can be plugged into the main Express app.
+   4. EXPORT ROUTER
    ============================================================ */
+
 module.exports = router;
