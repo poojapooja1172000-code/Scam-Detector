@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           /* Send login data to the backend */
           const response = await fetch(
-            "http://localhost:5000/api/auth/login",
+            "https://scam-detector-omega.vercel.app/api/auth/login"
             {
               method: "POST",
 

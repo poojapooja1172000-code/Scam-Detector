@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
 
       const response = await fetch(
-        `http://localhost:5000/api/scan/history?userId=${encodeURIComponent(
+        "https://scam-detector-omega.vercel.app/api/scan/history?userId=${encodeURIComponent(
           loggedInUserId
         )}`
       );
@@ -564,7 +564,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const response =
         await fetch(
-          `http://localhost:5000/api/scan/${encodeURIComponent(
+          "https://scam-detector-omega.vercel.app/api/scan/${encodeURIComponent(
             scanId
           )}?userId=${encodeURIComponent(
             loggedInUserId
@@ -1232,7 +1232,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const response =
         await fetch(
-          `http://localhost:5000/api/scan/${encodeURIComponent(
+          `https://scam-detector-omega.vercel.app/api/scan/${encodeURIComponent(
             scanId
           )}?userId=${encodeURIComponent(
             loggedInUserId

@@ -102,7 +102,7 @@ if (forgotPasswordForm) {
            ==================================================== */
 
         const response = await fetch(
-          "http://localhost:5000/api/auth/forgot-password",
+          https://scam-detector-omega.vercel.app
           {
             method: "POST",
 

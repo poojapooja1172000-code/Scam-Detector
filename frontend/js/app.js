@@ -8,7 +8,7 @@
    2. Logout
    3. Mobile navigation
    4. URL validation
-   5. Sending URL to backend
+   5. Sending URL to backend`
    6. Saving scan result
    7. Redirecting to result.html
    ============================================================ */

@@ -170,7 +170,7 @@ resetPasswordForm.addEventListener("submit", async function (event) {
        ========================================================== */
 
     const response = await fetch(
-      "http://localhost:5000/api/auth/reset-password",
+      "https://scam-detector-omega.vercel.app/api/auth/reset-password",
       {
         method: "POST",
 

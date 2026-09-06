@@ -175,7 +175,7 @@ if (verifyOtpForm) {
            ====================================================== */
 
         const response = await fetch(
-          "http://localhost:5000/api/auth/verify-otp",
+          "https://scam-detector-omega.vercel.app/api/auth/verify-otp",
           {
             method: "POST",
 
