@@ -6,16 +6,15 @@
    Handles:
    1. History page login protection
    2. Dynamic navbar and logout
-   3. Loading only the logged-in user's scans
+   3. Loading logged-in user's scans
    4. Searching by URL or domain
-   5. Beautiful View Details modal
+   5. View Details modal
    6. Loading spinner
    7. Toast notifications
-   8. Deleting the logged-in user's scans
+   8. Deleting scans
    9. Mobile navigation
    10. Empty-history display
    ============================================================ */
-
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -30,11 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.getItem("loggedInUserId");
 
   if (!isLoggedIn || !loggedInUserId) {
-
     alert("Please log in to view scan history.");
-
     window.location.href = "login.html";
-
     return;
   }
 
@@ -107,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("logoutBtn");
 
     if (logoutBtn) {
-
       logoutBtn.addEventListener(
         "click",
         logoutUser
@@ -123,11 +118,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function logoutUser() {
 
     localStorage.removeItem("isLoggedIn");
-
     localStorage.removeItem("loggedInUser");
-
     localStorage.removeItem("loggedInEmail");
-
     localStorage.removeItem("loggedInUserId");
 
     /* Remembered email is intentionally kept */
@@ -148,15 +140,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
 
-      const response = await fetch(
-      `https://scam-detector-omega.vercel.app/api/scan/history?userId=${encodeURIComponent(
-    scanId
-  )}?userId=${encodeURIComponent(
-    loggedInUserId
-  )}`
-);
+      /*
+       * IMPORTANT:
+       * This endpoint loads the user's complete history.
+       */
 
-      const data = await response.json();
+      const response = await fetch(
+        `https://scam-detector-omega.vercel.app/api/scan/history?userId=${encodeURIComponent(
+          loggedInUserId
+        )}`
+      );
+
+      const data =
+        await response.json();
 
       if (!response.ok) {
 
@@ -174,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
           ? data.scans
           : [];
 
-      /* Remove old rows */
+      /* Remove old/static rows */
 
       historyTableBody.innerHTML = "";
 
@@ -190,8 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           status: item.status,
 
-          riskScore:
-            item.riskScore,
+          riskScore: item.riskScore,
 
           scanDate:
             formatScanDate(item.scannedAt)
@@ -237,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     FORMAT DATE
+     5. FORMAT DATE
      ============================================================ */
 
   function formatScanDate(scannedAt) {
@@ -258,15 +253,10 @@ document.addEventListener("DOMContentLoaded", function () {
       "en-IN",
       {
         day: "2-digit",
-
         month: "short",
-
         year: "numeric",
-
         hour: "2-digit",
-
         minute: "2-digit",
-
         hour12: true
       }
     );
@@ -274,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     5. CREATE HISTORY TABLE ROW
+     6. CREATE HISTORY TABLE ROW
      ============================================================ */
 
   function createHistoryRow(item) {
@@ -285,7 +275,11 @@ document.addEventListener("DOMContentLoaded", function () {
     row.className =
       "history-table__row";
 
-    /* Store MongoDB ID */
+    /*
+     * Store MongoDB document ID.
+     *
+     * View and Delete both use this ID.
+     */
 
     row.dataset.id =
       item._id;
@@ -365,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     STATUS BADGE
+     7. STATUS BADGE
      ============================================================ */
 
   function getStatusBadgeClass(status) {
@@ -393,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     ESCAPE HTML
+     8. ESCAPE HTML
      ============================================================ */
 
   function escapeHtml(text) {
@@ -412,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     6. VIEW AND DELETE BUTTONS
+     9. VIEW AND DELETE BUTTONS
      ============================================================ */
 
   function setupRowActions() {
@@ -425,6 +419,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       return;
     }
+
+    /*
+     * Event delegation allows buttons created
+     * dynamically by loadHistory() to work.
+     */
 
     historyTableBody.addEventListener(
       "click",
@@ -465,7 +464,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
           }
 
-
           const scanId =
             row.dataset.id;
 
@@ -473,7 +471,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "SCAN ID:",
             scanId
           );
-
 
           if (!scanId) {
 
@@ -485,10 +482,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
           }
 
-
-          handleViewClick(
-            viewBtn
-          );
+          handleViewClick(viewBtn);
 
           return;
         }
@@ -504,9 +498,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "DELETE BUTTON CLICKED"
           );
 
-          handleDeleteClick(
-            deleteBtn
-          );
+          handleDeleteClick(deleteBtn);
 
           return;
         }
@@ -517,7 +509,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     VIEW SCAN DETAILS
+     10. VIEW SCAN DETAILS
      ============================================================ */
 
   async function handleViewClick(viewBtn) {
@@ -564,14 +556,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
 
-      const response =
-        await fetch(
-          `https://scam-detector-omega.vercel.app/api/scan/history?userId=${encodeURIComponent(
-            scanId
-          )}?userId=${encodeURIComponent(
-            loggedInUserId
-          )}`
-        );
+      /*
+       * IMPORTANT:
+       * View one scan using its MongoDB ID.
+       */
+
+      const response = await fetch(
+        `https://scam-detector-omega.vercel.app/api/scan/${encodeURIComponent(
+          scanId
+        )}?userId=${encodeURIComponent(
+          loggedInUserId
+        )}`
+      );
 
 
       console.log(
@@ -622,9 +618,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
-      openScanDetailsModal(
-        scan
-      );
+      openScanDetailsModal(scan);
+
 
     } catch (error) {
 
@@ -644,7 +639,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     7. BEAUTIFUL VIEW DETAILS MODAL
+     11. VIEW DETAILS MODAL
      ============================================================ */
 
   function openScanDetailsModal(scan) {
@@ -656,9 +651,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-      Create modal container if it does not
-      already exist in history.html.
-    */
+     * Create modal if it does not exist.
+     */
 
     if (!modal) {
 
@@ -808,8 +802,7 @@ document.addEventListener("DOMContentLoaded", function () {
         aria-labelledby="scanModalTitle"
       >
 
-
-        <!-- Modal Header -->
+        <!-- MODAL HEADER -->
 
         <div
           class="scan-modal__header"
@@ -851,12 +844,11 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
 
-        <!-- Modal Body -->
+        <!-- MODAL BODY -->
 
         <div
           class="scan-modal__body"
         >
-
 
           <!-- URL -->
 
@@ -879,14 +871,13 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
 
 
-          <!-- Details Grid -->
+          <!-- DETAILS GRID -->
 
           <div
             class="scan-modal__details"
           >
 
-
-            <!-- Domain -->
+            <!-- DOMAIN -->
 
             <div
               class="scan-modal__item"
@@ -935,7 +926,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
 
 
-            <!-- Status -->
+            <!-- STATUS -->
 
             <div
               class="scan-modal__item"
@@ -956,7 +947,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
 
 
-            <!-- Risk Score -->
+            <!-- RISK SCORE -->
 
             <div
               class="scan-modal__item"
@@ -977,7 +968,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
 
 
-            <!-- Scan Date -->
+            <!-- SCAN DATE -->
 
             <div
               class="scan-modal__item scan-modal__item--full"
@@ -1004,7 +995,7 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
 
 
-          <!-- Reasons -->
+          <!-- DETECTION REASONS -->
 
           <div
             class="scan-modal__reasons"
@@ -1030,7 +1021,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
 
-        <!-- Modal Footer -->
+        <!-- MODAL FOOTER -->
 
         <div
           class="scan-modal__footer"
@@ -1066,9 +1057,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* ========================================================
-       CLOSE BUTTON
-       ======================================================== */
+    /* CLOSE BUTTON */
 
     const closeButton =
       document.getElementById(
@@ -1076,9 +1065,7 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
 
-    /* ========================================================
-       FOOTER CLOSE BUTTON
-       ======================================================== */
+    /* FOOTER CLOSE BUTTON */
 
     const closeFooterButton =
       document.getElementById(
@@ -1086,9 +1073,7 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
 
-    /* ========================================================
-       OVERLAY
-       ======================================================== */
+    /* OVERLAY */
 
     const overlay =
       document.getElementById(
@@ -1125,7 +1110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     8. CLOSE MODAL
+     12. CLOSE MODAL
      ============================================================ */
 
   function closeScanDetailsModal() {
@@ -1157,7 +1142,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     ESCAPE KEY CLOSE MODAL
+     13. ESCAPE KEY CLOSE MODAL
      ============================================================ */
 
   document.addEventListener(
@@ -1176,7 +1161,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     9. DELETE SCAN
+     14. DELETE SCAN
      ============================================================ */
 
   async function handleDeleteClick(
@@ -1223,7 +1208,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     DELETE HISTORY ITEM
+     15. DELETE HISTORY ITEM
      ============================================================ */
 
   async function deleteHistoryItem(
@@ -1269,6 +1254,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       await loadHistory();
 
+
     } catch (error) {
 
       console.error(
@@ -1286,7 +1272,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     10. SEARCH HISTORY
+     16. SEARCH HISTORY
      ============================================================ */
 
   function setupSearch() {
@@ -1421,7 +1407,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     11. MOBILE NAVIGATION
+     17. MOBILE NAVIGATION
      ============================================================ */
 
   function setupMobileNavbar() {
@@ -1521,7 +1507,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     12. EMPTY STATE
+     18. EMPTY STATE
      ============================================================ */
 
   function checkEmptyState() {
@@ -1591,7 +1577,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     13. TOAST NOTIFICATIONS
+     19. TOAST NOTIFICATIONS
      ============================================================ */
 
   function showToast(
@@ -1680,7 +1666,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     14. LOADING SPINNER
+     20. LOADING SPINNER
      ============================================================ */
 
   function showLoadingSpinner() {
@@ -1754,7 +1740,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ============================================================
-     15. START PAGE FEATURES
+     21. START PAGE FEATURES
      ============================================================ */
 
   updateNavbarForLogin();
