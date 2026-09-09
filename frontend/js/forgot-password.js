@@ -1,6 +1,5 @@
 "use strict";
 
-
 const forgotPasswordForm =
   document.getElementById("forgotPasswordForm");
 
@@ -12,7 +11,6 @@ const sendOtpBtn =
 
 const forgotPasswordMessage =
   document.getElementById("forgotPasswordMessage");
-
 
 console.log("Forgot Password JS loaded successfully");
 
@@ -52,10 +50,8 @@ if (forgotPasswordForm) {
 
       console.log("Send OTP button clicked");
 
-
       const email =
         forgotEmail.value.trim().toLowerCase();
-
 
       console.log(
         "Email entered:",
@@ -102,7 +98,7 @@ if (forgotPasswordForm) {
            ==================================================== */
 
         const response = await fetch(
-          https://scam-detector-omega.vercel.app
+          "https://scam-detector-omega.vercel.app/api/auth/forgot-password",
           {
             method: "POST",
 
@@ -147,7 +143,7 @@ if (forgotPasswordForm) {
 
 
         /* ====================================================
-           SAVE ONLY EMAIL
+           SAVE EMAIL
            ==================================================== */
 
         sessionStorage.setItem(
