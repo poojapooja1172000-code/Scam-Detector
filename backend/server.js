@@ -26,9 +26,6 @@ const dotenv = require("dotenv");
 
 /* ============================================================
    3. LOAD ENVIRONMENT VARIABLES
-   IMPORTANT:
-   This must happen BEFORE importing routes/controllers
-   that use process.env.
    ============================================================ */
 
 dotenv.config();
@@ -44,48 +41,46 @@ const scanRoutes = require("./routes/scanRoutes");
 
 
 /* ============================================================
-   5. CONNECT TO DATABASE
-   ============================================================ */
-
-connectDB();
-
-
-/* ============================================================
-   6. INITIALIZE EXPRESS
+   5. INITIALIZE EXPRESS
    ============================================================ */
 
 const app = express();
 
 
 /* ============================================================
-   7. PORT
+   6. CORS CONFIGURATION
    ============================================================ */
 
-const PORT = process.env.PORT || 5000;
+const corsOptions = {
+  origin: "https://poojapooja1172000-code.github.io",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 
 
 /* ============================================================
-   8. MIDDLEWARE
+   7. JSON MIDDLEWARE
    ============================================================ */
-
-app.use(cors());
 
 app.use(express.json());
 
 
 /* ============================================================
-   9. TEST ROUTE
+   8. TEST ROUTE
    ============================================================ */
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Scam Detector Backend is Running Successfully",
+    message: "Scam Detector Backend is Running Successfully"
   });
 });
 
 
 /* ============================================================
-   10. ROUTES
+   9. API ROUTES
    ============================================================ */
 
 app.use("/api/auth", authRoutes);
@@ -94,15 +89,26 @@ app.use("/api/scan", scanRoutes);
 
 
 /* ============================================================
-   11. START SERVER
+   10. START SERVER
    ============================================================ */
 
+const PORT = process.env.PORT || 5000;
+
 if (require.main === module) {
+  connectDB();
+
   app.listen(PORT, () => {
     console.log(
       `Server is running on: http://localhost:${PORT}`
     );
   });
+} else {
+  connectDB();
 }
+
+
+/* ============================================================
+   11. EXPORT APP FOR VERCEL
+   ============================================================ */
 
 module.exports = app;
